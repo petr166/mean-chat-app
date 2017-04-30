@@ -1,42 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
+  loginForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private flashMessagesService: FlashMessagesService
   ) { }
 
   ngOnInit() {
+    this.checkLoggedIn();
+
+    this.loginForm = this.formBuilder.group({
+      //controlname: ['initial value', rules]
+      username: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(14) ]],
+      password: ['', [ Validators.required, Validators.minLength(4) ]]
+    });
   }
 
-  onLoginSubmit() {
-    let user = {
-      username: this.username,
-      password: this.password
+  checkLoggedIn(): void {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(["/"]);
     }
+  }
 
-    this.authService.authenticateUser(user)
+  onLoginSubmit(): void {
+    this.authService.authenticateUser(this.loginForm.value)
       .subscribe(data => {
-        if (data.success) {
+        if (data.success == true) {
           this.authService.storeUserData(data.token, data.user);
-          this.router.navigate(["/dashboard"]);
+          this.flashMessagesService.show(data.msg, {cssClass: "alert-success", timeout: 3000});
+          this.router.navigate(["/profile"]);
         } else {
           this.flashMessagesService.show(data.msg, {cssClass: "alert-danger", timeout: 3000});
         }
       });
-
-    console.log("formData:", user);
   }
 }

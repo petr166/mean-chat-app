@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+
 export class NavbarComponent implements OnInit {
 
   constructor(
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogoutClick() {
+  onLogoutClick(): boolean {
     this.authService.logout();
     this.router.navigate(["/login"]);
     return false;

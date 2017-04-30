@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from "../../services/validate.service";
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService } from "../../services/auth.service";
 import { Router } from '@angular/router';
+
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -11,50 +12,42 @@ import { Router } from '@angular/router';
 })
 
 export class RegisterComponent implements OnInit {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
+  registerForm: FormGroup;
 
   constructor(
-    private validateService: ValidateService,
+    private formBuilder: FormBuilder,
     private flashMessagesService: FlashMessagesService,
     private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.checkLoggedIn();
+
+    this.registerForm = this.formBuilder.group({
+      //controlname: ['initial value', rules]
+      username: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(14) ]],
+      password: ['', [ Validators.required , Validators.minLength(4) ]],
+      confirmPass: ['', [ Validators.required, Validators.minLength(4) ]]
+    });
   }
 
-  onRegisterSubmit() {
-    let user = {
-      name: this.name,
-      email: this.email,
-      username: this.username,
-      password: this.password,
+  checkLoggedIn(): void {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(["/"]);
     }
+  }
 
-    if (!this.validateService.validateRegister(user)) {
-      this.flashMessagesService.show("Please fill in all the fields.", {cssClass: 'alert-danger', timeout: 3000});
-      return false;
-    }
-
-    if (!this.validateService.validateEmail(user.email)) {
-      this.flashMessagesService.show("Please fill in a valid e-mail.", {cssClass: 'alert-danger', timeout: 3000});
-      return false;
-    }
-
-    this.authService.registerUser(user)
+  onRegisterSubmit(): void {
+    this.authService.registerUser(this.registerForm.value)
       .subscribe(data => {
-        if (data.success) {
-          this.flashMessagesService.show("You registered successfuly!", {cssClass: 'alert-success', timeout: 3000});
+        if (data.success == true) {
+          this.flashMessagesService.show(data.msg, {cssClass: "alert-success", timeout: 3000});
           this.router.navigate(["/login"]);
         } else {
-          this.flashMessagesService.show("Something went wrong. Please try again.", {cssClass: 'alert-danger', timeout: 3000});
+          this.flashMessagesService.show(data.msg, {cssClass: "alert-danger", timeout: 3000});
         }
       });
-
-    console.log("formData:", user);
   }
 
 }

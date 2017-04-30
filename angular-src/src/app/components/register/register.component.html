@@ -1,20 +1,47 @@
 <h2 class="page-header">Register</h2>
-<form (submit)="onRegisterSubmit()" novalidate="true">
+
+<form [formGroup]="registerForm"
+  (ngSubmit)="onRegisterSubmit()"
+  >
+
   <div class="form-group">
-    <label>Name</label>
-    <input type="text" [(ngModel)]="name" name="name" class="form-control">
+    <label for="username">Username</label>
+
+    <input type="text" name="username" class="form-control"
+      id="username"
+      placeholder="Enter your username"
+      formControlName="username"
+      >
   </div>
+
   <div class="form-group">
-    <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" class="form-control">
+    <label for="password">Password</label>
+
+    <input type="password" name="password" class="form-control"
+      id="password"
+      placeholder="Enter your password"
+      formControlName="password"
+      >
   </div>
+
   <div class="form-group">
-    <label>Email</label>
-    <input type="text" [(ngModel)]="email" name="email" class="form-control" >
+    <label for="confirmPass">Confirm password</label>
+
+    <input type="password" name="confirmPass" class="form-control"
+      id="confirmPass"
+      placeholder="Confirm password"
+      formControlName="confirmPass"
+      >
   </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" class="form-control">
-  </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
+
+  <button [disabled]="registerForm.invalid"
+    type="submit"
+    class="btn btn-primary"
+    name="register"
+    >Register
+  </button>
+  or
+
+  <a class="btn btn-info" role="button" routerLink="../">Login</a>
+
 </form>

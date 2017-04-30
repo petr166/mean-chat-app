@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from "./services/auth.service";
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'chat', component: ChatRoomComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChatRoomComponent
   ],
   imports: [
     BrowserModule,

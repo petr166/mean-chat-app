@@ -1,6 +1,7 @@
-<h2 class="page-header">Login</h2>
+<div class="container">
+  <h2 class="page-header">Login</h2>
 
-<form [formGroup]="loginForm"
+  <form [formGroup]="loginForm"
   (ngSubmit)="onLoginSubmit()"
   >
 
@@ -35,4 +36,6 @@
 
   <a class="btn btn-info" role="button" routerLink="/register">Register</a>
 
-</form>
+  </form>
+
+</div>

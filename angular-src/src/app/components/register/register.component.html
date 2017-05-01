@@ -1,6 +1,7 @@
-<h2 class="page-header">Register</h2>
+<div class="container">
+  <h2 class="page-header">Register</h2>
 
-<form [formGroup]="registerForm"
+  <form [formGroup]="registerForm"
   (ngSubmit)="onRegisterSubmit()"
   >
 
@@ -28,7 +29,7 @@
   <div class="form-group">
     <label for="confirmPass">Confirm password</label>
 
-    <input type="password" name="confirmPass" class="form-control"
+      <input type="password" name="confirmPass" class="form-control"
       id="confirmPass"
       placeholder="Confirm password"
       formControlName="confirmPass"
@@ -45,4 +46,5 @@
 
   <a class="btn btn-info" role="button" routerLink="../">Login</a>
 
-</form>
+  </form>
+</div>

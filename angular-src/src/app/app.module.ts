@@ -15,6 +15,7 @@ import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./guards/auth.guard";
+import { MessageComponent } from './components/message/message.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
-    ChatRoomComponent
+    ChatRoomComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

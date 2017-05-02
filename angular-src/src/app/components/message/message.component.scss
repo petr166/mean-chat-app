@@ -1,5 +1,35 @@
-.box {
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-  border: 2px red solid;
+@import "../../../assets/sass/to-import.scss";
+
+.panel-body {
+  @include display-flex();
+
+  &.mine {
+    @include justify-content(flex-end);
+    text-align: right;
+  }
+
+  .avatar {
+    height: 57px;
+    width: 50px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .msg-text-container {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .msg-text {
+      margin-top: 12px;
+    }
+  }
+}
+
+#time {
+  @include opacity(0);
+  @include transition("opacity .2s ease-in 0s");
+
+  &.fade-in {
+    @include opacity(1);
+  }
 }

@@ -21,38 +21,15 @@ export class ChatRoomComponent implements OnInit {
     this.username = "petru";
 
     this.messageList = [
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" },
-      { created: new Date(), from: "petru", text: "Hi there!" },
-      { created: new Date(), from: "alex", text: "Hello!" },
-      { created: new Date(), from: "petru", text: "How are you?" },
-      { created: new Date(), from: "alex", text: "Fine, thanks" }
+      { created: new Date('01 Jan 2017'), from: "petru", text: "Hi there!" },
+      { created: new Date('01 Jan 2017'), from: "alex", text: "Hello!" },
+      { created: new Date('01 Jan 2017'), from: "petru", text: "How are you?" },
+      { created: new Date('01 Jan 2017'), from: "alex", text: "Fine, thanks" },
+      { created: new Date('01 Jan 2017'), from: "petru", text: "Hi there!" },
+      { mine:true, created: new Date(), from: "alex", text: "Fine, thanks sdjakfjnk asfdnjk sadfjnk sadfjknsdfam,asd,fjnksd fannkja nkjsdfkn sfadn knjafsdk ksdfkml mkl" },
+      { created: new Date(), from: "marc", text: "Fine, thanks sdjakfjnk asfdnjk sadfjnk sadfjknsdfam,asd,fjnksd fannkja nkjsdfkn sfadn knjafsdk ksdfkml mkl" },
+      { created: new Date(), from: "alex", text: "Fine, thanks sdjakfjnk asfdnjk sadfjnk sadfjknsdfam,asd,fjnksd fannkja nkjsdfkn sfadn knjafsdk ksdfkml mkl" },
+      { mine:true, created: new Date(), from: "cornel", text: "Fine, thanks sdjakfjnk asfdnjk sadfjnk sadfjknsdfam,asd,fjnksd fannkja nkjsdfkn sfadn knjafsdk ksdfkml mkl" }
     ];
 
     this.sendForm = this.formBuilder.group({
@@ -68,6 +45,7 @@ export class ChatRoomComponent implements OnInit {
       text: this.sendForm.value.message
     };
     console.log(newMessage);
+    newMessage.mine = true;
     this.messageList.push(newMessage);
     this.scrollToBottom();
 

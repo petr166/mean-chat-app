@@ -1,8 +1,6 @@
 <div class="row panel panel-primary chat-container">
   <div class="panel-body msg-container">
-    <ul class="list-unstyled">
-      <li *ngFor="let message of messageList"><img src="assets/generic-avatar.png" alt="" height="57px" width="50px"> @{{message.from}}: {{message.text}} </li>
-    </ul>
+    <app-message *ngFor="let message of messageList" [message]="message"></app-message>
   </div>
 
   <div class="panel-footer">
@@ -22,7 +20,7 @@
             autocomplete="off"
             >
 
-          <span class="input-group-btn hidden-xs hidden-sm">
+          <span class="input-group-btn hidden-xs">
             <button [disabled]="sendForm.invalid" type="submit" class="btn btn-primary" name="send">Send</button>
           </span>
 

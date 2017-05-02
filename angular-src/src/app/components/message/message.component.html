@@ -1,5 +1,17 @@
-<div class="box">
-  <img src="assets/generic-avatar.png" alt="" height="57px" width="50px">
-  hai sa o dam bine
+<div class="panel message" [ngClass]="{'panel-info': message.mine, 'panel-warning': !message.mine}">
+  <div class="panel-body" [ngClass]="{mine: message.mine}">
+      <div *ngIf="!message.mine" class="avatar">
+        <img src="assets/generic-avatar.png" alt="" height="57px" width="50px">
+      </div>
 
+      <div class="msg-text-container">
+        <h3 class="panel-title"><strong>{{message.from}}</strong></h3>
+        <p class="msg-text">{{message.text}}</p>
+        <h3 class="panel-title" id="time" [ngClass]="{'fade-in': fadeTime}"><small> • {{time}}</small></h3>
+      </div>
+
+    <div *ngIf="message.mine" class="avatar">
+       <img src="assets/generic-avatar.png" alt="" height="57px" width="50px">
+    </div>
+  </div>
 </div>

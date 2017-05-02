@@ -4,17 +4,9 @@
   margin-bottom: 0;
 
   .msg-container {
-    padding-bottom: 81px;
+    padding-bottom: 120px;
     height: calc(100vh - 126.67px);
     overflow-y: scroll;
-  }
-
-  ul li {
-    padding: 12px;
-
-    &:nth-child(2n + 1){
-      background-color: #f1f1f1;
-    }
   }
 
   .form-container .input-group {

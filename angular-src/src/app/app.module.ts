@@ -11,11 +11,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { MessageComponent } from './components/message/message.component';
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./guards/auth.guard";
-import { MessageComponent } from './components/message/message.component';
+import { ChatService } from "./services/chat.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -46,8 +47,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    AuthGuard,
     AuthService,
-    AuthGuard
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

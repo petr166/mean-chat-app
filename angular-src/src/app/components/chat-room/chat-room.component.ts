@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { Message } from "../../models/message.model";
+import { ChatService } from "../../services/chat.service";
 
 @Component({
   selector: 'app-chat-room',
@@ -14,8 +15,13 @@ export class ChatRoomComponent implements OnInit {
   sendForm: FormGroup;
   message: string;
   username: string;
+  receiveMessageObs: any;
 
-  constructor(private formBuilder: FormBuilder, private el: ElementRef) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private el: ElementRef,
+    private chatService: ChatService
+  ) { }
 
   ngOnInit() {
     this.username = "petru";
@@ -36,6 +42,15 @@ export class ChatRoomComponent implements OnInit {
       message: ['', Validators.required ]
     });
 
+    this.chatService.connect(() => {
+      this.receiveMessageObs = this.chatService.receiveMessage()
+        .subscribe(message => {
+          message.mine = false;
+          this.messageList.push(message);
+          this.scrollToBottom();
+        });
+    });
+
   }
 
   onSendSubmit(): void {
@@ -45,6 +60,7 @@ export class ChatRoomComponent implements OnInit {
       text: this.sendForm.value.message
     };
     console.log(newMessage);
+    this.chatService.sendMessage(newMessage);
     newMessage.mine = true;
     this.messageList.push(newMessage);
     this.scrollToBottom();

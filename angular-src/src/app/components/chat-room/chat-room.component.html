@@ -1,13 +1,13 @@
-<div class="row panel panel-primary chat-container">
-  <div class="panel-body msg-container">
-    <app-message *ngFor="let message of messageList" [message]="message"></app-message>
-  </div>
+<div class="container">
+  <div class="panel panel-primary chat-container">
+    <div class="panel-body msg-container">
+      <app-message *ngFor="let message of messageList" [message]="message"></app-message>
+    </div>
 
-  <div class="panel-footer">
-    <div class="form-container">
+    <div class="panel-footer">
       <form [formGroup]="sendForm"
-      (ngSubmit)="onSendSubmit()"
-      >
+        (ngSubmit)="onSendSubmit()"
+        >
 
         <div class="input-group">
           <input type="text"
@@ -23,7 +23,6 @@
           <span class="input-group-btn hidden-xs">
             <button [disabled]="sendForm.invalid" type="submit" class="btn btn-primary" name="send">Send</button>
           </span>
-
         </div>
       </form>
     </div>

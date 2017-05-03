@@ -42,8 +42,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         if (data.success == true) {
           this.authService.storeUserData(data.token, data.user);
-          this.flashMessagesService.show(data.msg, {cssClass: "alert-success", timeout: 3000});
-          this.router.navigate(["/profile"]);
+          this.router.navigate(["/chat"]);
         } else {
           this.flashMessagesService.show(data.msg, {cssClass: "alert-danger", timeout: 3000});
         }

@@ -10,6 +10,7 @@ const io = require('./chat/io');
 
 // import routes
 const usersRoutes = require('./routes/users');
+const messagesRoutes = require('./routes/messages');
 
 // connect to database
 mongoose.connect(config.database);
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // set routes
 app.use('/users', usersRoutes);
+app.use('/messages', messagesRoutes);
 
 app.get('/', (req, res) => {
   res.send("Invalid Endpoint");

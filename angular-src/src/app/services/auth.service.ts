@@ -10,8 +10,8 @@ export class AuthService {
 
   // build
   // private apiUrl: string = "/users";
-  private authToken: any;
-  private user: any;
+  private authToken: string;
+  private user: string;
 
   constructor(private http: Http) { }
 
@@ -47,7 +47,7 @@ export class AuthService {
 
   getProfile(): any {
     let url: string = this.apiUrl + "/profile";
-    this.loadToken();
+    this.loadCredentials();
 
     // prepare the request
     let headers = new Headers({
@@ -70,9 +70,19 @@ export class AuthService {
     this.user = user;
   }
 
-  loadToken(): void {
+  getUserData(): any {
+    this.loadCredentials();
+    let jUser = JSON.parse(this.user);
+    let jData = {token: this.authToken, user: jUser};
+
+    return jData;
+  }
+
+  loadCredentials(): void {
     let token = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
     this.authToken = token;
+    this.user = user;
   }
 
   loggedIn(): boolean {

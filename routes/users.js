@@ -36,45 +36,11 @@ router.post('/register', (req, res, next) => {
   }
 });
 
-// authenticate
-// router.post('/authenticate', (req, res, next) => {
-//   let body = req.body;
-//
-//   User.getUserByUsername(body.username, (err, user) => {
-//     if (err) throw err;
-//     if (!user) {
-//       return res.json({success: false, msg: "User not found"});
-//     }
-//
-//     User.comparePassword(body.password, user.password, (err, isMatch) => {
-//       if (err) throw err;
-//       if (isMatch) {
-//         let token = jwt.sign(user, config.secret, {
-//           expiresIn: 604800
-//         });
-//
-//         res.json({
-//           success: true,
-//           token: "JWT " + token,
-//           user: {
-//             id: user._id,
-//             name: user.name,
-//             username: user.username,
-//             email: user.email
-//           }
-//         });
-//       } else {
-//         return res.json({success: false, msg: "Wrong username or password"});
-//       }
-//     });
-//   });
-// });
-
 router.post("/authenticate", (req, res, next) => {
   let body = req.body;
   let response = {success: false};
 
-  User.authenticate(body.username, body.password, (err, user) => {
+  User.authenticate(body.username.trim(), body.password.trim(), (err, user) => {
     if (err) {
       response.msg = err.msg;
       res.json(response);
@@ -99,7 +65,9 @@ router.post("/authenticate", (req, res, next) => {
 
 // profile
 router.get('/profile', passport.authenticate("jwt", {session: false}), (req, res, next) => {
-  res.json({user: req.user});
+  let response = {success: true};
+  response.user = req.user;
+  res.json(response);
 });
 
 module.exports = router;

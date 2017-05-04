@@ -11,10 +11,10 @@ import { AuthService } from "./auth.service";
 export class ChatService {
   private serverUrl: string = "http://localhost:8080";
   private socket: any;
-  // private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
+  private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
 
   //build
-  private apiUrl: string = "/messages";
+  // private apiUrl: string = "/messages";
 
   constructor(private authService: AuthService, private http: Http) { }
 

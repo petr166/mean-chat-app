@@ -1,7 +1,16 @@
+@import "../../../assets/sass/to-import.scss";
+
+.column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .chat-container {
   border: none;
   margin-top: -21px;
   margin-bottom: 0;
+  @include box-shadow($x: -2px, $y: 0px);
+  @include border-radius(0);
 
   .msg-container {
     height: calc(100vh - 126.67px);

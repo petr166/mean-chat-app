@@ -18,11 +18,16 @@ const initialize = (server) => {
       if (data.username) {
         socket.username = data.username;
         if (users.indexOf(socket.username) < 0) {
-          users.push(socket.username);  
+          users.push(socket.username);
         }
+        io.emit("active", users);
         console.log("[%s] connected", socket.username);
         console.log("<users>:", users);
       }
+    });
+
+    socket.on("getactive", () => {
+      socket.emit("active", users);
     });
 
     socket.on("message", (data) => {
@@ -39,6 +44,7 @@ const initialize = (server) => {
         users.splice(users.indexOf(socket.username), 1);
       }
       connections.splice(connections.indexOf(socket), 1);
+      io.emit("active", users);
       console.log("[%s] disconnected", socket.username);
       console.log("<users>:", users);
     });

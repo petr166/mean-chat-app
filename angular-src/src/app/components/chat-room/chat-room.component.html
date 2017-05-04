@@ -1,30 +1,38 @@
-<div class="container">
-  <div class="panel panel-primary chat-container">
-    <div class="panel-body msg-container">
-      <app-message *ngFor="let message of messageList" [message]="message"></app-message>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 hidden-xs">
+      <app-active-list [users]="userList"></app-active-list>
     </div>
 
-    <div class="panel-footer">
-      <form [formGroup]="sendForm"
-        (ngSubmit)="onSendSubmit()"
-        >
+    <div class="col-sm-9 column">
+      <div class="panel panel-primary chat-container">
+        <div class="panel-body msg-container">
+          <app-message *ngFor="let message of messageList" [message]="message"></app-message>
+        </div>
 
-        <div class="input-group">
-          <input type="text"
-            class="form-control"
-            placeholder="Type your message..."
-            id="message"
-            name="message"
-            formControlName="message"
-            autofocus="true"
-            autocomplete="off"
+        <div class="panel-footer">
+          <form [formGroup]="sendForm"
+            (ngSubmit)="onSendSubmit()"
             >
 
-          <span class="input-group-btn hidden-xs">
-            <button [disabled]="sendForm.invalid" type="submit" class="btn btn-primary" name="send">Send</button>
-          </span>
+            <div class="input-group">
+              <input type="text"
+                class="form-control"
+                placeholder="Type your message..."
+                id="message"
+                name="message"
+                formControlName="message"
+                autofocus="true"
+                autocomplete="off"
+                >
+
+              <span class="input-group-btn hidden-xs">
+                <button [disabled]="sendForm.invalid" type="submit" class="btn btn-primary" name="send">Send</button>
+              </span>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 

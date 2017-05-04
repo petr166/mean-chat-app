@@ -17,6 +17,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./guards/auth.guard";
 import { ChatService } from "./services/chat.service";
+import { ActiveListComponent } from './components/active-list/active-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ProfileComponent,
     ChatRoomComponent,
-    MessageComponent
+    MessageComponent,
+    ActiveListComponent
   ],
   imports: [
     BrowserModule,

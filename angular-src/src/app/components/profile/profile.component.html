@@ -1,10 +1,8 @@
-<div class="container">
-  <div *ngIf="user">
-    <h2 class="page-header">{{user.username}}'s profile</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Username: {{user.username}}</li>
-      <li class="list-group-item">Type: awesome</li>
-    </ul>
-  </div>
-  
+<div *ngIf="user" class="container">
+  <h2 class="page-header"><img src="assets/generic-avatar.png" alt="avatar" height="114px" width="100px"> {{user.username}}'s profile</h2>
+  <ul class="list-group">
+    <li class="list-group-item">Username: {{user.username}}</li>
+    <li class="list-group-item">Type: awesome</li>
+  </ul>
+
 </div>

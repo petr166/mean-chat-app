@@ -73,8 +73,22 @@ export class ChatService {
     return observable;
   }
 
+  receiveActiveList(): any {
+    let observable = new Observable(observer => {
+      this.socket.on("active", (data) => {
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
   sendMessage(message: Message): void {
     this.socket.emit("message", message);
+  }
+
+  getActiveList(): void {
+    this.socket.emit("getactive");
   }
 
   extractData(res: Response): any {

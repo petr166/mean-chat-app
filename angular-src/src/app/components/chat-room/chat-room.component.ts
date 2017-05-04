@@ -45,7 +45,7 @@ export class ChatRoomComponent implements OnInit {
     this.chatService.connect(() => {
       this.receiveMessageObs = this.chatService.receiveMessage()
         .subscribe(message => {
-          message.mine = false;
+          this.checkMine(message);
           this.messageList.push(message);
           this.scrollToBottom();
         });

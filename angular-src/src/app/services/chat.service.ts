@@ -29,6 +29,11 @@ export class ChatService {
     callback();
   }
 
+  disconnect(): void {
+    this.socket.disconnect();
+    console.log("disconected from the chat server");
+  }
+
   getMessages(): any {
     let url: string = this.apiUrl;
     let authToken = this.authService.getUserData().token;

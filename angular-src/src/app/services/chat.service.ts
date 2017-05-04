@@ -18,20 +18,31 @@ export class ChatService {
 
   constructor(private authService: AuthService, private http: Http) { }
 
-  connect(callback: Function): void {
+  connect(username: string, callback: Function = ()=>{}): void {
     // initialize the connection
     this.socket = io(this.serverUrl);
 
     this.socket.on("connect", () => {
+      this.sendUser(username);
       console.log("connected to the chat server");
+      callback();
     });
+  }
 
-    callback();
+  isConnected(): boolean {
+    if (this.socket != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  sendUser(username: string): void {
+    this.socket.emit("username", {username: username});
   }
 
   disconnect(): void {
     this.socket.disconnect();
-    console.log("disconected from the chat server");
   }
 
   getMessages(): any {

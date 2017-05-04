@@ -42,15 +42,28 @@ export class ChatRoomComponent implements OnInit {
         this.scrollToBottom();
       });
 
-    this.chatService.connect(() => {
-      this.receiveMessageObs = this.chatService.receiveMessage()
-        .subscribe(message => {
-          this.checkMine(message);
-          this.messageList.push(message);
-          this.scrollToBottom();
-        });
-    });
+      this.checkConnection();
 
+  }
+
+  checkConnection(): void {
+    let connected = this.chatService.isConnected();
+    if (connected == true) {
+      this.initMsgReceiver();
+    } else {
+      this.chatService.connect(this.username, () => {
+        this.initMsgReceiver();
+      });
+    }
+  }
+
+  initMsgReceiver(): void {
+    this.receiveMessageObs = this.chatService.receiveMessage()
+      .subscribe(message => {
+        this.checkMine(message);
+        this.messageList.push(message);
+        this.scrollToBottom();
+      });
   }
 
   onSendSubmit(): void {

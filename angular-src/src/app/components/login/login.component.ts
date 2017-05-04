@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { AuthService } from "../../services/auth.service";
+import { ChatService } from "../../services/chat.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private flashMessagesService: FlashMessagesService
+    private flashMessagesService: FlashMessagesService,
+    private chatService: ChatService
   ) { }
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         if (data.success == true) {
           this.authService.storeUserData(data.token, data.user);
+          this.chatService.connect(data.user.username);
           this.router.navigate(["/chat"]);
         } else {
           this.flashMessagesService.show(data.msg, {cssClass: "alert-danger", timeout: 3000});

@@ -1,40 +1,43 @@
 <div class="container">
-  <h2 class="page-header">Login</h2>
+  <h2 class="page-header text-center">Login</h2>
 
   <form [formGroup]="loginForm"
     (ngSubmit)="onLoginSubmit()"
     >
 
-  <div class="form-group">
-    <label for="username">Username</label>
+    <div class="form-group">
+      <label for="username">Username</label>
 
-    <input type="text" name="username" class="form-control"
-      id="username"
-      placeholder="Enter your username"
-      formControlName="username"
-      autofocus="true"
-      >
-  </div>
+      <input type="text" name="username" class="form-control"
+        id="username"
+        placeholder="Enter your username"
+        formControlName="username"
+        autofocus="true"
+        >
+    </div>
 
-  <div class="form-group">
-    <label for="password">Password</label>
+    <div class="form-group">
+      <label for="password">Password</label>
 
-    <input type="password" name="password" class="form-control"
-      id="password"
-      placeholder="Enter your password"
-      formControlName="password"
-      >
-  </div>
+      <input type="password" name="password" class="form-control"
+        id="password"
+        placeholder="Enter your password"
+        formControlName="password"
+        >
+    </div>
 
-  <button [disabled]="loginForm.invalid"
-    type="submit"
-    class="btn btn-primary"
-    name="login"
-    >Login
-  </button>
-  or
+    <div class="text-center">
+      <button [disabled]="loginForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+        name="login"
+        >Login
+      </button>
 
-  <a class="btn btn-info" role="button" routerLink="/register">Register</a>
+      or
+
+      <a class="btn btn-info" role="button" routerLink="/register">Register</a>
+    </div>
 
   </form>
 

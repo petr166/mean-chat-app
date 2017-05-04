@@ -63,32 +63,5 @@ UserSchema.statics.authenticate = function(username, password, callback) {
 };
 
 
-
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
-
-// module.exports.getUserById = (id, callback) => {
-//   User.findById(id, callback);
-// };
-
-// module.exports.getUserByUsername = (username, callback) => {
-//   const query = {username: username};
-//   User.findOne(query, callback);
-// };
-
-// module.exports.addUser = (newUser, callback) => {
-//   bcryptjs.genSalt(10, (err, salt) => {
-//     bcryptjs.hash(newUser.password, salt, (err, hash) => {
-//       if (err) throw err;
-//       newUser.password = hash;
-//       newUser.save(callback);
-//     });
-//   });
-// };
-
-// module.exports.comparePassword = (candidatePass, hash, callback) => {
-//   bcryptjs.compare(candidatePass, hash, (err, isMatch) => {
-//     if (err) throw err;
-//     callback(null, isMatch);
-//   });
-// };

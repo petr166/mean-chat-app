@@ -34,6 +34,9 @@ export class ChatRoomComponent implements OnInit {
 
     this.chatService.getMessages()
       .subscribe(data => {
+        for (let message of data.messages) {
+          this.checkMine(message);
+        }
         this.messageList = data.messages;
         console.log(data);
         this.scrollToBottom();
@@ -63,6 +66,12 @@ export class ChatRoomComponent implements OnInit {
     this.scrollToBottom();
 
     this.sendForm.setValue({message: ""});
+  }
+
+  checkMine(message: Message): void {
+    if (message.from == this.username) {
+      message.mine = true;
+    }
   }
 
   scrollToBottom(): void {

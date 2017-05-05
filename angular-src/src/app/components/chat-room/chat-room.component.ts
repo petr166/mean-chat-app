@@ -41,7 +41,6 @@ export class ChatRoomComponent implements OnInit {
           this.checkMine(message);
         }
         this.messageList = data.messages;
-        console.log(data);
         this.scrollToBottom();
       });
 
@@ -82,7 +81,6 @@ export class ChatRoomComponent implements OnInit {
       from: this.username,
       text: this.sendForm.value.message
     };
-    console.log(newMessage);
     this.chatService.sendMessage(newMessage);
     newMessage.mine = true;
     this.messageList.push(newMessage);

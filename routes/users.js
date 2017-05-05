@@ -30,6 +30,7 @@ router.post('/register', (req, res, next) => {
           id: user._id,
           username: user.username
         }
+        console.log("[%s] registered successfuly", user.username);
         res.json(response);
       }
     });
@@ -58,6 +59,7 @@ router.post("/authenticate", (req, res, next) => {
         response.success = true;
         response.msg = "User authenticated successfuly";
 
+        console.log("[%s] authenticated successfuly", user.username);
         res.json(response);
     }
   });

@@ -1,0 +1,5 @@
+@import "../../../assets/sass/to-import.scss";
+
+.navbar-default {
+  @include box-shadow($x: 0px, $y: 2px, $blur: 10px);
+}

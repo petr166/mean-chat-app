@@ -19,5 +19,31 @@
 
   form .input-group {
     width: 100%;
+
+    .hidden-atw {
+      @media only screen and (min-width: 768px) {
+        display: none !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .active-list-container {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    margin-top: -21px;
+    height: calc(100vh - 126.67px);
+    width: 240px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 21px;
+    background-color: #ffffff;
+    @include box-shadow($x: 2px, $y: 0px);
+
+    &.open {
+      display: block;
+    }
   }
 }

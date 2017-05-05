@@ -14,6 +14,7 @@ import { AuthService } from "../../services/auth.service";
 export class ChatRoomComponent implements OnInit {
   messageList: Array<Message>;
   userList: Array<String>;
+  showActive: boolean = false;
   sendForm: FormGroup;
   username: string;
   receiveMessageObs: any;
@@ -94,6 +95,10 @@ export class ChatRoomComponent implements OnInit {
     if (message.from == this.username) {
       message.mine = true;
     }
+  }
+
+  onUsersClick(): void {
+    this.showActive = !this.showActive;
   }
 
   scrollToBottom(): void {

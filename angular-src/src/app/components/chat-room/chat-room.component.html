@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 hidden-xs">
+    <div class="col-sm-3 active-list-container" [ngClass]="{open: showActive}">
       <app-active-list [users]="userList"></app-active-list>
     </div>
 
@@ -16,6 +16,10 @@
             >
 
             <div class="input-group">
+              <span class="input-group-btn hidden-atw">
+                <button type="button" class="btn btn-primary" name="active" (click)="onUsersClick()">Users</button>
+              </span>
+
               <input type="text"
                 class="form-control"
                 placeholder="Type your message..."

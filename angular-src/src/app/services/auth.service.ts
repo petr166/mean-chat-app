@@ -5,13 +5,13 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
-  // development
-  private apiUrl: string = "http://localhost:8080/users"; //!CHANGE this with the backend url
-
-  // build
-  // private apiUrl: string = "/users";
   private authToken: string;
   private user: string;
+  
+  // development
+  private apiUrl: string = "http://localhost:8080/users"; //!CHANGE this with the backend url
+  // build
+  // private apiUrl: string = "/users";
 
   constructor(private http: Http) { }
 

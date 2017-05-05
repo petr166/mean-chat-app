@@ -9,12 +9,13 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class ChatService {
-  private serverUrl: string = "http://localhost:8080";
   private socket: any;
+  private serverUrl: string = "http://localhost:8080";
   private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
 
   //build
   // private apiUrl: string = "/messages";
+  // private serverUrl: string = "/";
 
   constructor(private authService: AuthService, private http: Http) { }
 

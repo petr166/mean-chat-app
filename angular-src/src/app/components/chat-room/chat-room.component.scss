@@ -13,8 +13,13 @@
   @include border-radius(0);
 
   .msg-container {
-    height: calc(100vh - 126.67px);
+    height: calc(100vh - 126px);
     overflow-y: scroll;
+    @include transition("filter .2s ease-in 0s");
+
+    &.blurred {
+      @include css3-prefix(filter, blur(2px));
+    }
   }
 
   form .input-group {
@@ -34,8 +39,8 @@
     position: absolute;
     z-index: 1;
     margin-top: -21px;
-    height: calc(100vh - 126.67px);
-    width: 240px;
+    height: calc(100vh - 126px);
+    width: 220px;
     padding-left: 0;
     padding-right: 0;
     padding-top: 21px;

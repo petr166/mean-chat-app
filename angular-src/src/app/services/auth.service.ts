@@ -7,7 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
   private authToken: string;
   private user: string;
-  
+
   // development
   private apiUrl: string = "http://localhost:8080/users"; //!CHANGE this with the backend url
   // build

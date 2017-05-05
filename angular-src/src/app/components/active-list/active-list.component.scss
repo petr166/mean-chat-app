@@ -1,6 +1,8 @@
 ul {
-  margin-top: 20px;
-  
+  margin-top: 24px;
+  height: calc(100vh - 219px);
+  overflow-y: scroll;
+
   a.list-group-item {
     border-right: none;
     border-left: none;

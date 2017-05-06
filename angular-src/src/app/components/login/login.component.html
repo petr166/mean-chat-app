@@ -26,17 +26,17 @@
         >
     </div>
 
-    <div class="text-center">
+    <div class="form-group">
       <button [disabled]="loginForm.invalid"
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-primary btn-block"
         name="login"
         >Login
       </button>
+    </div>
 
-      or
-
-      <a class="btn btn-info" role="button" routerLink="/register">Register</a>
+    <div class="text-center">
+      <a [routerLink]="['/register']">Don't have an account?</a>
     </div>
 
   </form>

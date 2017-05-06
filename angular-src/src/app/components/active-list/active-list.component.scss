@@ -1,7 +1,13 @@
 ul {
   margin-top: 24px;
+  margin-bottom: 0;
   height: calc(100vh - 219px);
   overflow-y: scroll;
+
+  @media only screen and (min-width: 768px) {
+    height: calc(100vh - 153px);
+    overflow-y: scroll;
+  }
 
   a.list-group-item {
     border-right: none;

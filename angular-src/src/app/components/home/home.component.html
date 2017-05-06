@@ -7,6 +7,10 @@
       or
       <a class="btn btn-info" [routerLink]="['/login']">Login</a>
     </div>
+
+    <div *ngIf="this.authService.loggedIn()">
+      <a class="btn btn-primary" [routerLink]="['/chat']">Chat Room</a>
+    </div>
   </div>
 
   <div class="row">

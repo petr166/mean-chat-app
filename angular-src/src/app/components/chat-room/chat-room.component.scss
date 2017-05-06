@@ -5,6 +5,11 @@
   padding-right: 0;
 }
 
+.active-list-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .chat-container {
   border: none;
   margin-top: -21px;
@@ -37,12 +42,11 @@
   .active-list-container {
     display: none;
     position: absolute;
+    left: 0;
     z-index: 1;
     margin-top: -21px;
     height: calc(100vh - 126px);
     width: 220px;
-    padding-left: 0;
-    padding-right: 0;
     padding-top: 21px;
     background-color: #ffffff;
     @include box-shadow($x: 2px, $y: 0px);

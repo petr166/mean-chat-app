@@ -11,7 +11,6 @@ import { ChatService } from "../../services/chat.service";
 })
 
 export class NavbarComponent implements OnInit {
-  chatWith: string;
 
   constructor(
     private authService: AuthService,

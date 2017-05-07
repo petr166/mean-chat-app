@@ -1,11 +1,11 @@
 ul {
   margin-top: 24px;
   margin-bottom: 0;
-  height: calc(100vh - 219px);
+  height: calc(100vh - 194px);
   overflow-y: scroll;
 
   @media only screen and (min-width: 768px) {
-    height: calc(100vh - 153px);
+    height: calc(100vh - 154px);
     overflow-y: scroll;
   }
 

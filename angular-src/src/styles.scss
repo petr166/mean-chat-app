@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+.hidden-atw {
+  @media only screen and (min-width: 768px) {
+    display: none !important;
+  }
+}

@@ -10,7 +10,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class ChatService {
   private socket: any;
-  private chatWith: string;
   private serverUrl: string = "http://localhost:8080";
   private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
 
@@ -45,14 +44,6 @@ export class ChatService {
 
   disconnect(): void {
     this.socket.disconnect();
-  }
-
-  setChatWith(name: string): void {
-    this.chatWith = name;
-  }
-
-  getChatWith(): string {
-    return this.chatWith || "chat-room";
   }
 
   getMessages(): any {
@@ -103,8 +94,8 @@ export class ChatService {
     return observable;
   }
 
-  sendMessage(message: Message): void {
-    this.socket.emit("message", {message: message, to: this.chatWith});
+  sendMessage(message: Message, chatWith: string): void {
+    this.socket.emit("message", {message: message, to: chatWith});
   }
 
   getActiveList(): void {

@@ -17,35 +17,51 @@
   @include box-shadow($x: -2px, $y: 0px);
   @include border-radius(0);
 
-  .msg-container {
-    height: calc(100vh - 126px);
-    overflow-y: scroll;
-    @include transition("filter .2s ease-in 0s");
+  .panel-heading {
+    height: 40px;
+    padding: 8px 15px;
+    margin: 0;
+    margin-bottom: 4px;
+    border: none;
+    @include border-radius-separate($topLeftRadius: 0, $topRightRadius: 0, $bottomLeftRadius: 5px, $bottomRightRadius: 5px)
+    background-color: lighten(#2c3e50, 20%);
+    @include box-shadow($x: 0px, $y: 2px);
 
-    &.blurred {
-      @include css3-prefix(filter, blur(2px));
+    button {
+      padding: 6px 10px;
+      margin-top: -5px;
     }
   }
 
-  form .input-group {
-    width: 100%;
+  .msg-container {
+    margin: 0;
+    border: none;
+    height: calc(100vh - 171px);
+    overflow-y: scroll;
+    @include transition("filter .2s ease-in 0s");
+  }
 
-    .hidden-atw {
-      @media only screen and (min-width: 768px) {
-        display: none !important;
-      }
+  .panel-footer {
+    @include transition("filter .2s ease-in 0s");
+
+    form .input-group {
+      width: 100%;
     }
   }
 }
 
-@media only screen and (max-width: 767px) {
+.blurred {
+  @include css3-prefix(filter, blur(2px));
+}
+
+@media only screen and (max-width: 768px) {
   .active-list-container {
     display: none;
     position: absolute;
+    top: 100px;
     left: 0;
-    z-index: 1;
-    margin-top: -21px;
-    height: calc(100vh - 126px);
+    z-index: 3;
+    height: calc(100vh - 100px);
     width: 220px;
     padding-top: 21px;
     background-color: #ffffff;

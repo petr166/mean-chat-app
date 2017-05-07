@@ -18,6 +18,7 @@ export class ChatRoomComponent implements OnInit {
   showActive: boolean = false;
   sendForm: FormGroup;
   username: string;
+  chatWith: string;
   receiveMessageObs: any;
   receiveActiveObs: any;
   receivePrivateObs: any;
@@ -36,7 +37,8 @@ export class ChatRoomComponent implements OnInit {
     this.username = userData.user.username;
 
     this.route.params.subscribe((params: Params) => {
-      this.chatService.setChatWith(params.chatWith);
+      this.chatWith = params.chatWith;
+      console.log("chatWith:", this.chatWith);
     });
 
     this.sendForm = this.formBuilder.group({
@@ -81,7 +83,7 @@ export class ChatRoomComponent implements OnInit {
 
     this.receivePrivateObs = this.chatService.receivePrivateMessage()
       .subscribe(message => {
-        if (message.from == this.chatService.getChatWith()) {
+        if (message.from == this.chatWith) {
           this.checkMine(message);
           this.messageList.push(message);
           this.scrollToBottom();
@@ -109,7 +111,7 @@ export class ChatRoomComponent implements OnInit {
       text: this.sendForm.value.message
     };
 
-    this.chatService.sendMessage(newMessage);
+    this.chatService.sendMessage(newMessage, this.chatWith);
     newMessage.mine = true;
     this.messageList.push(newMessage);
     this.scrollToBottom();
@@ -129,6 +131,8 @@ export class ChatRoomComponent implements OnInit {
 
   onNewConv(username: string) {
     this.router.navigate(['/chat', username]);
+    this.showActive = false;
+
   }
 
   scrollToBottom(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Message } from "../../models/message.model";
 import { ChatService } from "../../services/chat.service";
@@ -19,8 +20,11 @@ export class ChatRoomComponent implements OnInit {
   username: string;
   receiveMessageObs: any;
   receiveActiveObs: any;
+  receivePrivateObs: any;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private el: ElementRef,
     private authService: AuthService,
@@ -31,18 +35,24 @@ export class ChatRoomComponent implements OnInit {
     let userData = this.authService.getUserData();
     this.username = userData.user.username;
 
+    this.route.params.subscribe((params: Params) => {
+      this.chatService.setChatWith(params.chatWith);
+    });
+
     this.sendForm = this.formBuilder.group({
       message: ['', Validators.required ]
     });
 
-    this.chatService.getMessages()
-      .subscribe(data => {
-        for (let message of data.messages) {
-          this.checkMine(message);
-        }
-        this.messageList = data.messages;
-        this.scrollToBottom();
-      });
+    // this.chatService.getMessages()
+    //   .subscribe(data => {
+    //     for (let message of data.messages) {
+    //       this.checkMine(message);
+    //     }
+    //     this.messageList = data.messages;
+    //     this.scrollToBottom();
+    //   });
+
+    this.messageList = [];
 
     this.connectToChat();
 
@@ -69,8 +79,25 @@ export class ChatRoomComponent implements OnInit {
         this.scrollToBottom();
       });
 
+    this.receivePrivateObs = this.chatService.receivePrivateMessage()
+      .subscribe(message => {
+        if (message.from == this.chatService.getChatWith()) {
+          this.checkMine(message);
+          this.messageList.push(message);
+          this.scrollToBottom();
+        } else {
+          console.log("notification:", message);
+        }
+      });
+
     this.receiveActiveObs = this.chatService.receiveActiveList()
       .subscribe(users => {
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].username == this.username) {
+            users.splice(i, 1);
+            break;
+          }
+        }
         this.userList = users;
       });
   }
@@ -81,6 +108,7 @@ export class ChatRoomComponent implements OnInit {
       from: this.username,
       text: this.sendForm.value.message
     };
+
     this.chatService.sendMessage(newMessage);
     newMessage.mine = true;
     this.messageList.push(newMessage);
@@ -97,6 +125,10 @@ export class ChatRoomComponent implements OnInit {
 
   onUsersClick(): void {
     this.showActive = !this.showActive;
+  }
+
+  onNewConv(username: string) {
+    this.router.navigate(['/chat', username]);
   }
 
   scrollToBottom(): void {

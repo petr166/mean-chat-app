@@ -2,9 +2,18 @@
   <h3 class="text-center">Online users</h3>
 
   <ul class="list-group">
-    <a *ngFor="let user of users" class="list-group-item">
-      <img src="assets/img/generic-avatar.png" alt="avatar" height="28.5px" width="25px">
-      {{user}}
+    <a href="#" class="list-group-item" (click)="onUserClick('chat-room')" [ngClass]="{active: current == 'chat-room'}">
+      <span class="glyphicon glyphicon-comment" aria-hidden="true" style="margin-right: 2px"></span>
+      Chat Room
+    </a>
+    <a *ngFor="let user of users"
+      href="#"
+      class="list-group-item"
+      (click)="onUserClick(user.username)"
+      [ngClass]="{active: user.username == current}"
+      >
+        <img src="assets/img/generic-avatar.png" alt="avatar" height="28.5px" width="25px">
+        {{user.username}}
     </a>
   </ul>
 

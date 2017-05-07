@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 active-list-container" [ngClass]="{open: showActive}">
-      <app-active-list [users]="userList"></app-active-list>
+      <app-active-list [users]="userList" [current]="this.chatService.getChatWith()" (newConv)="onNewConv($event)"></app-active-list>
     </div>
 
     <div class="col-sm-9 column">

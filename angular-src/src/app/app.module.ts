@@ -24,7 +24,10 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'chat', component: ChatRoomComponent, canActivate: [AuthGuard] },
+  { path: 'chat', canActivate: [AuthGuard], children: [
+    { path: ':chatWith', component: ChatRoomComponent },
+    { path: '**', redirectTo: '/chat/chat-room', pathMatch: 'full' }
+  ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 

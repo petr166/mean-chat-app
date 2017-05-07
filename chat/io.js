@@ -2,13 +2,12 @@ const socketIo = require('socket.io');
 const Message = require('../models/message');
 
 const users = [];
-const connections = [];
 
 const initialize = (server) => {
   const io = socketIo(server);
 
   io.on("connection", (socket) => {
-    connections.push(socket);
+    socket.join("chat-room");
 
     socket.emit("welcome", {
       msg: "Welcome to the chat server!"
@@ -17,9 +16,11 @@ const initialize = (server) => {
     socket.on("username", (data) => {
       if (data.username) {
         socket.username = data.username;
-        if (users.indexOf(socket.username) < 0) {
-          users.push(socket.username);
+        let user = { username: socket.username, id: socket.id };
+        if (searchUser(socket.username) == false) {
+          users.push(user);
         }
+
         io.emit("active", users);
         console.log("[%s] connected", socket.username);
         console.log("<users>:", users);
@@ -31,37 +32,40 @@ const initialize = (server) => {
     });
 
     socket.on("message", (data) => {
-      socket.broadcast.emit("message", data);
-      console.log("[%s]<< %s", data.from, data.text);
+      if (data.to == "chat-room") {
+        socket.broadcast.to("chat-room").emit("message", data.message);
+      } else {
+        let userIndex = searchUser(data.to);
+        socket.broadcast.to(users[userIndex].id).emit("private-msg", data.message);
+      }
+      console.log("[%s].to(%s)<< %s", data.message.from, data.to, data.message.text);
 
       // save the message to the database
       let message = new Message(data);
-      Message.addMessage(message, (err, newMsg) => {});
+      // Message.addMessage(message, (err, newMsg) => {});
     });
 
     socket.on("disconnect", () => {
-      if (users.indexOf(socket.username) > -1) {
-        let multiple = checkMultiple(socket.username);
-        if (multiple == 1) {
-          users.splice(users.indexOf(socket.username), 1);
-          console.log("[%s] disconnected", socket.username);
-          console.log("<users>:", users);
-        }
+      let userIndex = searchUser(socket.username);
+      if (userIndex > -1) {
+        users.splice(userIndex, 1);
       }
-      connections.splice(connections.indexOf(socket), 1);
+
       io.emit("active", users);
+      console.log("[%s] disconnected", socket.username);
+      console.log("<users>:", users);
     });
   });
 };
 
-const checkMultiple = (username) => {
-  let multiple = 0;
-  for (conn of connections) {
-    if (conn.username == username) {
-      multiple ++;
+const searchUser = (username) => {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].username == username) {
+      return i;
     }
   }
-  return multiple;
+
+  return false;
 };
 
 module.exports = initialize;

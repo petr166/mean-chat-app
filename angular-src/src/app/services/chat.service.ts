@@ -10,6 +10,7 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class ChatService {
   private socket: any;
+  private chatWith: string;
   private serverUrl: string = "http://localhost:8080";
   private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
 
@@ -46,6 +47,14 @@ export class ChatService {
     this.socket.disconnect();
   }
 
+  setChatWith(name: string): void {
+    this.chatWith = name;
+  }
+
+  getChatWith(): string {
+    return this.chatWith || "chat-room";
+  }
+
   getMessages(): any {
     let url: string = this.apiUrl;
     let authToken = this.authService.getUserData().token;
@@ -74,6 +83,16 @@ export class ChatService {
     return observable;
   }
 
+  receivePrivateMessage(): any {
+    let observable = new Observable(observer => {
+      this.socket.on("private-msg", (data: Message) => {
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
   receiveActiveList(): any {
     let observable = new Observable(observer => {
       this.socket.on("active", (data) => {
@@ -85,7 +104,7 @@ export class ChatService {
   }
 
   sendMessage(message: Message): void {
-    this.socket.emit("message", message);
+    this.socket.emit("message", {message: message, to: this.chatWith});
   }
 
   getActiveList(): void {

@@ -26,14 +26,14 @@ UserSchema.statics.getUserByUsername = function(username, callback) {
 
 UserSchema.statics.addUser = function(newUser, callback) {
   User.getUserByUsername(newUser.username, (err, user) => {
-    if (err) throw err;
+    if (err) return callback({msg: "There was an error on getting the user"});
     if (user) {
       let error = {msg: "Username is already in use"};
       return callback(error);
     } else {
       bcryptjs.genSalt(10, (err, salt) => {
         bcryptjs.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
+          if (err) return callback({msg: "There was an error registering the new user"});
 
           newUser.password = hash;
           newUser.save(callback);
@@ -45,7 +45,7 @@ UserSchema.statics.addUser = function(newUser, callback) {
 
 UserSchema.statics.authenticate = function(username, password, callback) {
   User.getUserByUsername(username, (err, user) => {
-    if (err) throw err;
+    if (err) return callback({msg: "There was an error on getting the user"});
     if (!user) {
       let error = {msg: "Wrong username or password"};
       return callback(error);

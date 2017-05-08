@@ -13,6 +13,10 @@ const MessageSchema = mongoose.Schema({
   text: {
     type: String,
     required: true
+  },
+  conversationId: {
+    type: String,
+    required: true
   }
 });
 
@@ -22,6 +26,10 @@ MessageSchema.statics.addMessage = (message, callback) => {
 
 MessageSchema.statics.getMessages = (callback) => {
   Message.find({}, callback);
+};
+
+MessageSchema.statics.getMessagesByConv = (id, callback) => {
+  Message.find({conversationId: id}, callback);
 };
 
 

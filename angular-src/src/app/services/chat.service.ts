@@ -46,8 +46,13 @@ export class ChatService {
     this.socket.disconnect();
   }
 
-  getMessages(): any {
-    let url: string = this.apiUrl;
+  getConversation(name1: string, name2: string): any {
+    let url = this.apiUrl;
+    if (name2 != "chat-room") {
+      let route = "/" + name1 + "/" + name2;
+      url += route;
+    }
+
     let authToken = this.authService.getUserData().token;
 
     // prepare the request
@@ -67,16 +72,6 @@ export class ChatService {
   receiveMessage(): any {
     let observable = new Observable(observer => {
       this.socket.on("message", (data: Message) => {
-        observer.next(data);
-      });
-    });
-
-    return observable;
-  }
-
-  receivePrivateMessage(): any {
-    let observable = new Observable(observer => {
-      this.socket.on("private-msg", (data: Message) => {
         observer.next(data);
       });
     });

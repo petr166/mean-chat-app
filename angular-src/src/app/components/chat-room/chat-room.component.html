@@ -7,14 +7,17 @@
     <div class="col-sm-9 column">
       <div class="panel panel-primary chat-container">
         <div class="panel-heading text-center clearfix">
-          <button class="btn btn-primary btn-sm pull-left hidden-atw" type="button" name="active" (click)="onUsersClick()">Users</button>
+          <button class="btn btn-warning btn-sm pull-left hidden-atw" type="button" name="active" (click)="onUsersClick()">Users</button>
           {{chatWith}}
         </div>
         <div class="panel-body msg-container" [ngClass]="{blurred: showActive}">
+          <div *ngIf="noMsg" id="noMsg" class="text-center">
+            There are no messages
+          </div>
           <app-message *ngFor="let message of messageList" [message]="message"></app-message>
         </div>
 
-        <div class="panel-footer" [ngClass]="{blurred: showActive}" (click)="showActive = false;">
+        <div class="panel-footer" [ngClass]="{blurred: showActive}">
           <form [formGroup]="sendForm"
             (ngSubmit)="onSendSubmit()"
             >

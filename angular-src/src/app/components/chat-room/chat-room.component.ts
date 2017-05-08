@@ -15,13 +15,15 @@ import { AuthService } from "../../services/auth.service";
 export class ChatRoomComponent implements OnInit {
   messageList: Array<Message>;
   userList: Array<String>;
-  showActive: boolean = false;
+  showActive: boolean;
   sendForm: FormGroup;
   username: string;
   chatWith: string;
   receiveMessageObs: any;
   receiveActiveObs: any;
   receivePrivateObs: any;
+  noMsg: boolean;
+  conversationId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,23 +40,13 @@ export class ChatRoomComponent implements OnInit {
 
     this.route.params.subscribe((params: Params) => {
       this.chatWith = params.chatWith;
-      console.log("chatWith:", this.chatWith);
     });
 
     this.sendForm = this.formBuilder.group({
       message: ['', Validators.required ]
     });
 
-    // this.chatService.getMessages()
-    //   .subscribe(data => {
-    //     for (let message of data.messages) {
-    //       this.checkMine(message);
-    //     }
-    //     this.messageList = data.messages;
-    //     this.scrollToBottom();
-    //   });
-
-    this.messageList = [];
+    this.getMessages(this.chatWith);
 
     this.connectToChat();
 
@@ -73,18 +65,35 @@ export class ChatRoomComponent implements OnInit {
     }
   }
 
+  getMessages(name: string): void {
+    this.chatService.getConversation(this.username, name)
+      .subscribe(data => {
+        if (data.success == true) {
+          this.conversationId = data.conversation._id || data.conversation._doc._id;
+          let messages = data.conversation.messages || data.conversation._doc.messages;
+          if (messages && messages.length > 0) {
+            for (let message of messages) {
+              this.checkMine(message);
+            }
+            this.noMsg = false;
+            this.messageList = messages;
+            this.scrollToBottom();
+          } else {
+            this.noMsg = true;
+            this.messageList = [];
+          }
+        } else {
+          this.onNewConv("chat-room");
+        }
+      });
+  }
+
   initReceivers(): void {
     this.receiveMessageObs = this.chatService.receiveMessage()
       .subscribe(message => {
         this.checkMine(message);
-        this.messageList.push(message);
-        this.scrollToBottom();
-      });
-
-    this.receivePrivateObs = this.chatService.receivePrivateMessage()
-      .subscribe(message => {
-        if (message.from == this.chatWith) {
-          this.checkMine(message);
+        if (message.conversationId == this.conversationId) {
+          this.noMsg = false;
           this.messageList.push(message);
           this.scrollToBottom();
         } else {
@@ -108,11 +117,13 @@ export class ChatRoomComponent implements OnInit {
     let newMessage: Message = {
       created: new Date(),
       from: this.username,
-      text: this.sendForm.value.message
+      text: this.sendForm.value.message,
+      conversationId: this.conversationId
     };
 
     this.chatService.sendMessage(newMessage, this.chatWith);
     newMessage.mine = true;
+    this.noMsg = false;
     this.messageList.push(newMessage);
     this.scrollToBottom();
 
@@ -130,9 +141,13 @@ export class ChatRoomComponent implements OnInit {
   }
 
   onNewConv(username: string) {
-    this.router.navigate(['/chat', username]);
+    if (this.chatWith != username) {
+      this.router.navigate(['/chat', username]);
+      this.getMessages(username);
+    } else {
+      this.getMessages(username);
+    }
     this.showActive = false;
-
   }
 
   scrollToBottom(): void {

@@ -54,6 +54,12 @@
   @include css3-prefix(filter, blur(2px));
 }
 
+#noMsg {
+  width: 100%;
+  height: 100%;
+  padding-top: calc((100vh - 171px) / 2 - 30px);
+}
+
 @media only screen and (max-width: 768px) {
   .active-list-container {
     display: none;

@@ -36,13 +36,13 @@ const initialize = (server) => {
         socket.broadcast.to("chat-room").emit("message", data.message);
       } else {
         let userIndex = searchUser(data.to);
-        socket.broadcast.to(users[userIndex].id).emit("private-msg", data.message);
+        socket.broadcast.to(users[userIndex].id).emit("message", data.message);
       }
       console.log("[%s].to(%s)<< %s", data.message.from, data.to, data.message.text);
 
       // save the message to the database
-      let message = new Message(data);
-      // Message.addMessage(message, (err, newMsg) => {});
+      let message = new Message(data.message);
+      Message.addMessage(message, (err, newMsg) => {});
     });
 
     socket.on("disconnect", () => {

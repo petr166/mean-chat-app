@@ -139,7 +139,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
           this.messageList.push(message);
           this.scrollToBottom();
           this.msgSound();
-        } else {
+        } else if (message.mine != true) {
           if (this.notification.timeout) {clearTimeout(this.notification.timeout)};
           this.notification = {
             from: message.from,

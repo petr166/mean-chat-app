@@ -130,9 +130,9 @@
 
   .notification {
     top: -52px;
-    right: 5vw;
-    left: 5vw;
-    width: 90vw;
+    right: 8vw;
+    left: 8vw;
+    width: 84vw;
     z-index: 1001;
     @include animation("notification-mobile .4s ease-out 0s 1");
   }

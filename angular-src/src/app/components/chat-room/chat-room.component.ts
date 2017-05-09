@@ -14,7 +14,7 @@ import { AuthService } from "../../services/auth.service";
 
 export class ChatRoomComponent implements OnInit {
   messageList: Array<Message>;
-  userList: Array<String>;
+  userList: Array<any>;
   showActive: boolean;
   sendForm: FormGroup;
   username: string;
@@ -24,6 +24,8 @@ export class ChatRoomComponent implements OnInit {
   receivePrivateObs: any;
   noMsg: boolean;
   conversationId: string;
+  notify: boolean;
+  notification: any = {timeout:null};
 
   constructor(
     private route: ActivatedRoute,
@@ -96,8 +98,17 @@ export class ChatRoomComponent implements OnInit {
           this.noMsg = false;
           this.messageList.push(message);
           this.scrollToBottom();
+          this.msgSound();
         } else {
-          console.log("notification:", message);
+          if (this.notification.timeout) {clearTimeout(this.notification.timeout)};
+          this.notification = {
+            from: message.from,
+            inChatRoom: message.inChatRoom,
+            text: message.text,
+            timeout: setTimeout(()=>{ this.notify = false }, 4000)
+          };
+          this.notify = true;
+          this.notifSound();
         }
       });
 
@@ -118,7 +129,8 @@ export class ChatRoomComponent implements OnInit {
       created: new Date(),
       from: this.username,
       text: this.sendForm.value.message,
-      conversationId: this.conversationId
+      conversationId: this.conversationId,
+      inChatRoom: this.chatWith == "chat-room"
     };
 
     this.chatService.sendMessage(newMessage, this.chatWith);
@@ -126,7 +138,7 @@ export class ChatRoomComponent implements OnInit {
     this.noMsg = false;
     this.messageList.push(newMessage);
     this.scrollToBottom();
-
+    this.msgSound();
     this.sendForm.setValue({message: ""});
   }
 
@@ -148,6 +160,17 @@ export class ChatRoomComponent implements OnInit {
       this.getMessages(username);
     }
     this.showActive = false;
+  }
+
+  notifSound(): void {
+    let sound: any = this.el.nativeElement.querySelector('#notifSound');
+    sound.play();
+  }
+
+  msgSound(): void {
+    let sound: any = this.el.nativeElement.querySelector('#msgSound');
+    sound.load();
+    sound.play();
   }
 
   scrollToBottom(): void {

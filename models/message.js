@@ -17,7 +17,11 @@ const MessageSchema = mongoose.Schema({
   conversationId: {
     type: String,
     required: true
-  }
+  },
+  inChatRoom: {
+    type: Boolean,
+    required: false
+  },
 });
 
 MessageSchema.statics.addMessage = (message, callback) => {

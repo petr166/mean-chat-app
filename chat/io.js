@@ -36,7 +36,9 @@ const initialize = (server) => {
         socket.broadcast.to("chat-room").emit("message", data.message);
       } else {
         let userIndex = searchUser(data.to);
-        socket.broadcast.to(users[userIndex].id).emit("message", data.message);
+        if (userIndex) {
+          socket.broadcast.to(users[userIndex].id).emit("message", data.message);
+        }
       }
       console.log("[%s].to(%s)<< %s", data.message.from, data.to, data.message.text);
 

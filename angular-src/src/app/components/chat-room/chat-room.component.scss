@@ -60,13 +60,63 @@
   padding-top: calc((100vh - 171px) / 2 - 30px);
 }
 
-@media only screen and (max-width: 768px) {
+.notification {
+  position: absolute;
+  padding: 15px;
+  margin: 0;
+  top: 24px;
+  right: 10px;
+  z-index: 3;
+  width: 320px;
+  background-color: #E8F5E9;
+  border: 2px solid #18bc9c;
+  @include border-radius(10px);
+  @include box-shadow($x: 0px, $y: 0px);
+  @include animation("notification .4s ease-in-out 0s 1");
+
+  h4 {
+    margin-top: 0;
+    span {
+      font-size: 16px;
+    }
+  }
+
+  p {
+    margin-left: 4px;
+    font-size: 14px;
+  }
+}
+
+@include keyframes(notification) {
+  0% {
+    @include opacity(0);
+    @include transform(translateX(330px));
+  }
+
+  80% {
+    @include opacity(1);
+    @include transform(translateX(-12px));
+  }
+
+  85% {
+    @include opacity(1);
+    @include transform(translateX(2px));
+  }
+
+  100% {
+    @include opacity(1);
+    @include transform(translateX(0));
+  }
+}
+
+@media only screen and (max-width: 767.99px) {
   .active-list-container {
     display: none;
     position: absolute;
     top: 100px;
     left: 0;
     z-index: 3;
+    margin: 0;
     height: calc(100vh - 100px);
     width: 220px;
     padding-top: 21px;
@@ -76,5 +126,26 @@
     &.open {
       display: block;
     }
+  }
+
+  .notification {
+    top: -52px;
+    right: 5vw;
+    left: 5vw;
+    width: 90vw;
+    z-index: 1001;
+    @include animation("notification-mobile .4s ease-out 0s 1");
+  }
+}
+
+@include keyframes(notification-mobile) {
+  0% {
+    @include opacity(0);
+    @include transform(translateY(-200px));
+  }
+
+  100% {
+    @include opacity(1);
+    @include transform(translateX(0));
   }
 }

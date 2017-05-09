@@ -1,14 +1,15 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 active-list-container" [ngClass]="{open: showActive}">
+    <div class="col-sm-3 col-lg-2 active-list-container" [ngClass]="{open: showActive}">
       <app-active-list [users]="userList" [current]="chatWith" (newConv)="onNewConv($event)"></app-active-list>
     </div>
 
-    <div class="col-sm-9 column">
+    <div class="col-sm-9 col-lg-10 column">
       <div class="panel panel-primary chat-container">
         <div class="panel-heading text-center clearfix">
           <button class="btn btn-warning btn-sm pull-left hidden-atw" type="button" name="active" (click)="onUsersClick()">Users</button>
           {{chatWith}}
+          <button class="btn btn-warning btn-sm" type="button" name="bum" (click)="notify=!notify">Bum</button>
         </div>
         <div class="panel-body msg-container" [ngClass]="{blurred: showActive}">
           <div *ngIf="noMsg" id="noMsg" class="text-center">
@@ -39,8 +40,18 @@
             </div>
           </form>
         </div>
+
+        <div *ngIf="notify" class="well notification">
+          <h4><strong>{{notification.from}}</strong> <span *ngIf="notification.inChatRoom">to chat-room</span>:</h4>
+          <p>{{notification.text}}</p>
+        </div>
       </div>
     </div>
   </div>
 
 </div>
+
+<audio id="notifSound" src="assets/audio/notification.mp3" type="audio/mpeg">
+<audio id="msgSound" src="assets/audio/message.mp3" type="audio/mpeg">
+
+</audio>

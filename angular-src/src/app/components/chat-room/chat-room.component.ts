@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { AuthService } from "../../services/auth.service";
   styleUrls: ['./chat-room.component.scss']
 })
 
-export class ChatRoomComponent implements OnInit {
+export class ChatRoomComponent implements OnInit, OnDestroy {
   messageList: Array<Message>;
   userList: Array<any>;
   showActive: boolean;
@@ -21,7 +21,6 @@ export class ChatRoomComponent implements OnInit {
   chatWith: string;
   receiveMessageObs: any;
   receiveActiveObs: any;
-  receivePrivateObs: any;
   noMsg: boolean;
   conversationId: string;
   notify: boolean;
@@ -52,8 +51,11 @@ export class ChatRoomComponent implements OnInit {
 
     this.connectToChat();
 
-    this.chatService.getActiveList();
+  }
 
+  ngOnDestroy() {
+    this.receiveActiveObs.unsubscribe();
+    this.receiveMessageObs.unsubscribe();
   }
 
   connectToChat(): void {
@@ -90,7 +92,45 @@ export class ChatRoomComponent implements OnInit {
       });
   }
 
+  getUserList(): void {
+    this.chatService.getUserList()
+      .subscribe(data => {
+        if (data.success == true) {
+          let users = data.users;
+          for (let i = 0; i < users.length; i++) {
+            if (users[i].username == this.username) {
+              users.splice(i, 1);
+              break;
+            }
+          }
+          this.userList = users;
+
+          this.receiveActiveObs = this.chatService.receiveActiveList()
+            .subscribe(users => {
+              for (let user of this.userList) {
+                let flag = 0;
+                for (let liveUser of users) {
+                  if (liveUser.username == user.username) {
+                    user.online = true;
+                    flag = 1;
+                  }
+                }
+                if (flag == 0) {
+                  user.online = false;
+                }
+              }
+            });
+
+          this.chatService.getActiveList();
+        } else {
+          this.onNewConv("chat-room");
+        }
+      });
+  }
+
   initReceivers(): void {
+    this.getUserList();
+
     this.receiveMessageObs = this.chatService.receiveMessage()
       .subscribe(message => {
         this.checkMine(message);
@@ -110,17 +150,6 @@ export class ChatRoomComponent implements OnInit {
           this.notify = true;
           this.notifSound();
         }
-      });
-
-    this.receiveActiveObs = this.chatService.receiveActiveList()
-      .subscribe(users => {
-        for (let i = 0; i < users.length; i++) {
-          if (users[i].username == this.username) {
-            users.splice(i, 1);
-            break;
-          }
-        }
-        this.userList = users;
       });
   }
 

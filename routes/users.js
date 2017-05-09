@@ -73,4 +73,21 @@ router.get('/profile', passport.authenticate("jwt", {session: false}), (req, res
   res.json(response);
 });
 
+// user list
+router.get('/',  (req, res, next) => {
+  let response = {success: true};
+
+  User.getUsers((err, users)=> {
+    if (err || users == null) {
+      response.success = false;
+      response.msg = "There was an error on getting the user list";
+      res.json(response);
+    } else {
+      response.msg = "User list retrieved successfuly";
+      response.users = users;
+      res.json(response);
+    }
+  });
+});
+
 module.exports = router;

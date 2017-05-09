@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h3 class="text-center">Online users</h3>
+  <h3 class="text-center">Conversations</h3>
 
   <ul class="list-group">
     <a href="#" class="list-group-item" (click)="onUserClick('chat-room')" [ngClass]="{active: current == 'chat-room'}">
@@ -10,10 +10,11 @@
       href="#"
       class="list-group-item"
       (click)="onUserClick(user.username)"
-      [ngClass]="{active: user.username == current}"
+      [ngClass]="{active: user.username == current, online: user.online}"
       >
         <img src="assets/img/generic-avatar.png" alt="avatar" height="28.5px" width="25px">
         {{user.username}}
+        <span *ngIf="user.online" class="glyphicon glyphicon-ok-sign pull-right" aria-hidden="true" style="padding-top: 5px"></span>
     </a>
   </ul>
 

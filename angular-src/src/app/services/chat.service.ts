@@ -12,10 +12,12 @@ export class ChatService {
   private socket: any;
   private serverUrl: string = "http://localhost:8080";
   private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
+  private usersUrl: string = "http://localhost:8080/users";
 
   //build
   // private apiUrl: string = "/messages";
   // private serverUrl: string = "/";
+  // private usersUrl: string = "/users";
 
   constructor(private authService: AuthService, private http: Http) { }
 
@@ -52,6 +54,25 @@ export class ChatService {
       let route = "/" + name1 + "/" + name2;
       url += route;
     }
+
+    let authToken = this.authService.getUserData().token;
+
+    // prepare the request
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      "Authorization": authToken
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    // POST
+    let observableReq = this.http.get(url, options)
+                                 .map(this.extractData);
+
+    return observableReq;
+  }
+
+  getUserList(): any {
+    let url = this.usersUrl;
 
     let authToken = this.authService.getUserData().token;
 

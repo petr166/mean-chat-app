@@ -12,5 +12,19 @@ ul {
   a.list-group-item {
     border-right: none;
     border-left: none;
+
+    span.glyphicon-comment {
+      color: #4CAF50;
+    }
+
+    &.online {
+      span.glyphicon {
+        color: #4CAF50;
+      }
+
+      img {
+        border: 2px solid #4CAF50;
+      }
+    }
   }
 }

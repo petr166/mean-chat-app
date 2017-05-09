@@ -24,6 +24,10 @@ UserSchema.statics.getUserByUsername = function(username, callback) {
   User.findOne(query, callback);
 }
 
+UserSchema.statics.getUsers = function (callback) {
+  User.find({}, 'username _id', callback);
+}
+
 UserSchema.statics.addUser = function(newUser, callback) {
   User.getUserByUsername(newUser.username, (err, user) => {
     if (err) return callback({msg: "There was an error on getting the user"});

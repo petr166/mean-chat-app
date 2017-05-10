@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a routerLink="/" class="navbar-brand">
+      <a routerLink="/" class="navbar-brand" (click)="onNavigate()">
         <span><img alt="Brand" src="assets/img/brand.ico" width="34px" height="34px"></span>
         ChatApp
       </a>
@@ -18,14 +18,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/">Home</a></li>
-        <li *ngIf="authService.loggedIn()" routerLinkActive="active"><a routerLink="/chat">Chat</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onNavigate()"><a routerLink="/">Home</a></li>
+        <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/chat">Chat</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!authService.loggedIn()" routerLinkActive="active"><a routerLink="/login">Login</a></li>
-        <li *ngIf="!authService.loggedIn()" routerLinkActive="active"><a routerLink="/register">Register</a></li>
-        <li *ngIf="authService.loggedIn()" routerLinkActive="active"><a routerLink="/profile">Profile</a></li>
+        <li *ngIf="!authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/login">Login</a></li>
+        <li *ngIf="!authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/register">Register</a></li>
+        <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/profile">Profile</a></li>
         <li *ngIf="authService.loggedIn()"><a href="#" (click)="onLogoutClick()">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

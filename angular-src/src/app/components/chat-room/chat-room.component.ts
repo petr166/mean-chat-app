@@ -19,6 +19,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   sendForm: FormGroup;
   username: string;
   chatWith: string;
+  currentOnline: boolean;
   receiveMessageObs: any;
   receiveActiveObs: any;
   noMsg: boolean;
@@ -74,7 +75,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data.success == true) {
           this.conversationId = data.conversation._id || data.conversation._doc._id;
-          let messages = data.conversation.messages || data.conversation._doc.messages;
+          let messages = data.conversation.messages || null;
           if (messages && messages.length > 0) {
             for (let message of messages) {
               this.checkMine(message);
@@ -103,22 +104,41 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          this.userList = users;
+          this.userList = users.sort(this.compareByUsername);
 
           this.receiveActiveObs = this.chatService.receiveActiveList()
             .subscribe(users => {
+              for(let onlineUsr of users) {
+                if (onlineUsr.username != this.username) {
+                  let flaggy = 0;
+                  for(let registered of this.userList) {
+                    if (registered.username == onlineUsr.username) {
+                      flaggy = 1;
+                      break;
+                    }
+                  }
+                  if (flaggy == 0) {
+                    this.userList.push(onlineUsr);
+                    this.userList.sort(this.compareByUsername);
+                  }
+                }
+              }
+
               for (let user of this.userList) {
                 let flag = 0;
                 for (let liveUser of users) {
                   if (liveUser.username == user.username) {
                     user.online = true;
                     flag = 1;
+                    break;
                   }
                 }
                 if (flag == 0) {
                   user.online = false;
                 }
               }
+
+              this.currentOnline = this.checkOnline(this.chatWith);
             });
 
           this.chatService.getActiveList();
@@ -188,6 +208,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     } else {
       this.getMessages(username);
     }
+    this.currentOnline = this.checkOnline(username);
     this.showActive = false;
   }
 
@@ -207,6 +228,31 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       element.scrollTop = element.scrollHeight;
     }, 100);
+  }
+
+  checkOnline(name: string): boolean {
+    if (name == "chat-room") {
+      for (let user of this.userList) {
+        if (user.online == true) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      for (let user of this.userList) {
+        if (user.username == name) {
+          return user.online;
+        }
+      }
+    }
+  }
+
+  compareByUsername(a, b): number {
+    if (a.username < b.username)
+      return -1;
+    if (a.username > b.username)
+      return 1;
+    return 0;
   }
 
 }

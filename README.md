@@ -1,7 +1,5 @@
-######
-
 <p align="center">
-  <img src="https://media.giphy.com/media/3o7bukiR089wb4ayTm/giphy.gif" width="1200px" height="959px" alt="App Preview"/>
+  <img src="https://media.giphy.com/media/3o7bukiR089wb4ayTm/giphy.gif" alt="App Preview"/>
 </p>
 
 # MEAN Chat App
@@ -84,9 +82,7 @@ On the client-side users can create accounts that will be stored in the database
 
 This is a personal project with the purpose of better understanding the client-server communication paradigm, new web technologies, especially Angular :)
 
-<p align="center">
-  <img src="https://media.giphy.com/media/3oKIPsMIQbwHIuvGda/giphy.gif" width="300px" height="533.6px" alt="Mobile Preview"/>
-</p>
+![Mobile Preview](https://media.giphy.com/media/3oKIPsMIQbwHIuvGda/giphy.gif)
 
 # Plans
 

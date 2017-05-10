@@ -2,3 +2,18 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.row {
+  margin-top: 50px;
+}
+
+@media only screen and (max-width: 767.99px) {
+  .col-md-4 {
+    text-align: justify;
+    margin-bottom: 40px;
+  }
+
+  .row {
+    margin-top: 0;
+  }
+}

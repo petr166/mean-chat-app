@@ -1,0 +1,223 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+------------------------------------------------------------- */
+/**
+* SassFlexbox
+* Manage Flexbox in Sass easily.
+*
+* @author     Samuel Marchal (zessx)
+* @version    0.1
+*/
+/*
+    Display
+ */
+/*
+    Flex direction
+ */
+/*
+    Flex wrap
+ */
+/*
+    Flex flow
+ */
+/*
+    Order
+ */
+/*
+    Flex grow
+ */
+/*
+    Flex shrink
+ */
+/*
+    Flex basis
+ */
+/*
+    Flex
+ */
+/*
+    Justify content
+ */
+/*
+    Align items
+ */
+/*
+    Align self
+ */
+/*
+    Align content
+ */
+.loader-container {
+  padding-top: calc(50vh - 80px); }
+
+.loader {
+  position: relative;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  background-color: #eeeeee;
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%; }
+  .loader:before, .loader:after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 80px;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%; }
+  .loader:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 4px solid transparent;
+    border-top-color: #2c3e50;
+    border-bottom-color: #2c3e50;
+    -webkit-animation: loader 1s linear infinite;
+    -khtml-animation: loader 1s linear infinite;
+    -moz-animation: loader 1s linear infinite;
+    -ms-animation: loader 1s linear infinite;
+    -o-animation: loader 1s linear infinite;
+    animation: loader 1s linear infinite; }
+
+@media only screen and (max-width: 767.99px) {
+  .loader-container {
+    padding-top: calc(50vh - 50px); }
+
+  .loader {
+    height: 50px;
+    width: 50px; }
+    .loader:before, .loader:after {
+      width: 50px;
+      height: 50px; }
+    .loader:after {
+      border-width: 2px; } }
+@-webkit-keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg) scale(1);
+    -khtml-transform: rotate(0deg) scale(1);
+    -moz-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    -o-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); }
+  50% {
+    -webkit-transform: rotate(45deg) scale(1.2);
+    -khtml-transform: rotate(45deg) scale(1.2);
+    -moz-transform: rotate(45deg) scale(1.2);
+    -ms-transform: rotate(45deg) scale(1.2);
+    -o-transform: rotate(45deg) scale(1.2);
+    transform: rotate(45deg) scale(1.2); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(1);
+    -khtml-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1); } }
+@-moz-keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg) scale(1);
+    -khtml-transform: rotate(0deg) scale(1);
+    -moz-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    -o-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); }
+  50% {
+    -webkit-transform: rotate(45deg) scale(1.2);
+    -khtml-transform: rotate(45deg) scale(1.2);
+    -moz-transform: rotate(45deg) scale(1.2);
+    -ms-transform: rotate(45deg) scale(1.2);
+    -o-transform: rotate(45deg) scale(1.2);
+    transform: rotate(45deg) scale(1.2); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(1);
+    -khtml-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1); } }
+@-ms-keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg) scale(1);
+    -khtml-transform: rotate(0deg) scale(1);
+    -moz-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    -o-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); }
+  50% {
+    -webkit-transform: rotate(45deg) scale(1.2);
+    -khtml-transform: rotate(45deg) scale(1.2);
+    -moz-transform: rotate(45deg) scale(1.2);
+    -ms-transform: rotate(45deg) scale(1.2);
+    -o-transform: rotate(45deg) scale(1.2);
+    transform: rotate(45deg) scale(1.2); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(1);
+    -khtml-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1); } }
+@-o-keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg) scale(1);
+    -khtml-transform: rotate(0deg) scale(1);
+    -moz-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    -o-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); }
+  50% {
+    -webkit-transform: rotate(45deg) scale(1.2);
+    -khtml-transform: rotate(45deg) scale(1.2);
+    -moz-transform: rotate(45deg) scale(1.2);
+    -ms-transform: rotate(45deg) scale(1.2);
+    -o-transform: rotate(45deg) scale(1.2);
+    transform: rotate(45deg) scale(1.2); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(1);
+    -khtml-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1); } }
+@keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg) scale(1);
+    -khtml-transform: rotate(0deg) scale(1);
+    -moz-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    -o-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); }
+  50% {
+    -webkit-transform: rotate(45deg) scale(1.2);
+    -khtml-transform: rotate(45deg) scale(1.2);
+    -moz-transform: rotate(45deg) scale(1.2);
+    -ms-transform: rotate(45deg) scale(1.2);
+    -o-transform: rotate(45deg) scale(1.2);
+    transform: rotate(45deg) scale(1.2); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(1);
+    -khtml-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1); } }
+
+/*# sourceMappingURL=loader.css.map */

@@ -1,0 +1,66 @@
+@import "../sass/to-import.scss";
+
+.loader-container {
+  padding-top: calc(50vh - 80px);
+}
+
+.loader {
+  position: relative;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  background-color: #eeeeee;
+  @include border-radius(50%);
+
+  &:before, &:after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 80px;
+    @include border-radius(50%);
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 4px solid transparent;
+    border-top-color: #2c3e50;
+    border-bottom-color: #2c3e50;
+    @include animation("loader 1s linear infinite");
+  }
+}
+
+@media only screen and (max-width: 767.99px) {
+  .loader-container {
+    padding-top: calc(50vh - 50px);
+  }
+
+  .loader {
+    height: 50px;
+    width: 50px;
+
+    &:before, &:after {
+      width: 50px;
+      height: 50px;
+    }
+
+    &:after {
+      border-width: 2px;
+    }
+  }
+}
+
+@include keyframes(loader)  {
+  0% {
+    @include transform(rotate(0deg) scale(1));
+  }
+
+  50% {
+    @include transform(rotate(45deg) scale(1.2));
+  }
+
+  100% {
+    @include transform(rotate(360deg) scale(1));
+  }
+};

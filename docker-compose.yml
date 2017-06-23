@@ -1,0 +1,43 @@
+version: '3' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+
+  # api gateway service
+  api: # name of the  service
+    build: . # specify the directory of the Dockerfile
+    ports:
+      - "8080:8080" #specify ports forwarding
+    volumes: # map local(host) volumes to container volumes
+      - .:/usr/src/app # map the app directory for live reload on changes (dev)
+      - api-deps1:/usr/src/app/node_modules # map the node_modules directory to avoid compiling conflicts
+    env_file: # pass env vars from a file
+      - ./docker-dev.env
+    links: # links to dependency services (those will be accessible at the host {{serviceName}})
+      - mongo
+    command: npm run dev # ovveride the command defined in Dockerfile
+
+  # api gateway service
+  angular: # name of the  service
+    build: ./angular-src # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200" #specify ports forwarding
+    volumes: # map local(host) volumes to container volumes
+      - ./angular-src:/usr/src/app # map the app directory for live reload on changes (dev)
+      - api-deps2:/usr/src/app/node_modules # map the node_modules directory to avoid compiling conflicts
+    env_file: # pass env vars from a file
+      - ./docker-dev.env
+    environment:
+      - PORT=4200
+
+  # mongo database
+  mongo:
+    image: mongo:latest
+    volumes: # map a local volume for persistent storage
+      - /docker/data/mongo:/data/db
+
+
+# mount 'node_modules' directory to its volume to avoid dependency conflicts
+volumes:
+  api-deps1:
+  api-deps2:

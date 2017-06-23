@@ -5,28 +5,19 @@ const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const config = require('./config/database');
+const config = require('./config/index');
 const io = require('./chat/io');
+const initMongo = require('./config/mongo');
 
 // import routes
 const usersRoutes = require('./routes/users');
 const messagesRoutes = require('./routes/messages');
 
 // connect to database
-mongoose.connect(config.database);
-
-mongoose.connection.on('connected', () => {
-  console.log("connected to database:", config.database);
-});
-mongoose.connection.on('error', (err) => {
-  console.log("database error:", err.message);
-});
+initMongo();
 
 // initialize the app
 const app = express();
-
-// PORT
-const port = process.env.PORT || 8080;
 
 // middleware
 app.use(cors());
@@ -34,7 +25,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-app.use(passport.session());
 require('./config/passport')(passport);
 
 // static folder
@@ -53,8 +43,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-const server = app.listen(port, () => {
-  console.log("Express server is listening on", port);
+const server = app.listen(config.server.port, () => {
+  console.log(`Express server is listening on ${config.server.port}...`);
 });
 
 // initialize the chat handler

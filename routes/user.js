@@ -4,19 +4,19 @@ const User = require('../models/user');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const log = require('../log');
 
 // register
 router.post('/register', (req, res, next) => {
-  let body = req.body;
   let response = {success: false};
-
-  if (!(body.password == body.confirmPass)) {
-    response.msg = "The confirmed password doesn't match";
-    res.json(response);
-  } else {
+  if (!(req.body.password == req.body.confirmPass)) {
+    let err = 'The passwords don\'t match';
+    return next(err);
+  }
+  else {
     let newUser = new User({
-      username: body.username,
-      password: body.password,
+      username: req.body.username,
+      password: req.body.password,
     });
 
     User.addUser(newUser, (err, user) => {
@@ -75,19 +75,18 @@ router.get('/profile', passport.authenticate("jwt", {session: false}), (req, res
 
 // user list
 router.get('/',  (req, res, next) => {
-  let response = {success: true};
-
-  User.getUsers((err, users)=> {
-    if (err || users == null) {
-      response.success = false;
-      response.msg = "There was an error on getting the user list";
-      res.json(response);
-    } else {
-      response.msg = "User list retrieved successfuly";
-      response.users = users;
-      res.json(response);
-    }
-  });
+  User.getUsers()
+    .then(users => {
+      let response = {
+        success: true,
+        users: users
+      };
+      return res.json(response);
+    })
+    .catch(err => {
+      log.err('mongo', 'failed to get users', err.message || err);
+      return next(new Error('Failed to get users'));
+    });
 });
 
 module.exports = router;

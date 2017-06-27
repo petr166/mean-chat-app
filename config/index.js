@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 8080;
 const MONGO_HOST = process.env.MONGO_HOST || 'mongodb://localhost/chat-app';
 const SECRET = process.env.SECRET || 'supersecretalltheway';
 
+// init config obj containing the app settings
 const config = {
   env: NODE_ENV,
   server: {

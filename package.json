@@ -1,29 +1,29 @@
 {
-  "name": "chat-app",
-  "version": "1.0.0",
+  "name": "mean-chat-app",
+  "version": "0.1.0",
   "description": "MEAN ChatApp",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./app.js",
-    "start": "node ./app"
+    "dev": "nodemon ./server.js",
+    "start": "node ./server.js"
   },
   "author": "Petru Birzu",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.1",
-    "cors": "^2.8.3",
-    "express": "^4.15.2",
-    "jsonwebtoken": "^7.4.0",
-    "mongoose": "^4.9.6",
-    "morgan": "^1.8.1",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "socket.io": "^1.7.3"
+    "bcryptjs": "2.4",
+    "bluebird": "3.5",
+    "body-parser": "1.17",
+    "cors": "2.8",
+    "express": "4.15",
+    "jsonwebtoken": "7.4",
+    "mongoose": "4.10",
+    "morgan": "1.8",
+    "passport": "0.3",
+    "passport-jwt": "2.2",
+    "socket.io": "1.7"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "1.11"
   }
 }

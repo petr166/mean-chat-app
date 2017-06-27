@@ -9,8 +9,8 @@ services:
     ports:
       - "8080:8080" # specify ports forwarding
     volumes: # map local(host) volumes to container volumes
-      - .:/usr/src/app # map the app directory for live reload on changes (dev)
-      - api-deps1:/usr/src/app/node_modules # map the node_modules directory to avoid compiling conflicts
+      - .:/app # map the app directory for live reload on changes (dev)
+      - api-deps1:/app/node_modules # map the node_modules directory to avoid compiling conflicts
     env_file: # pass env vars from a file
       - ./docker-dev.env
     links: # links to dependency services (those will be accessible at the host {{serviceName}})
@@ -25,8 +25,8 @@ services:
     ports:
       - "4200:4200" # specify ports forwarding
     volumes: # map local(host) volumes to container volumes
-      - ./angular-src:/usr/src/app # map the app directory for live reload on changes (dev)
-      - api-deps2:/usr/src/app/node_modules # map the node_modules directory to avoid compiling conflicts
+      - ./angular-src:/app # map the app directory for live reload on changes (dev)
+      - api-deps2:/app/node_modules # map the node_modules directory to avoid compiling conflicts
     environment:
       - PORT=4200
 
@@ -36,7 +36,7 @@ services:
     networks:
       - backend
     volumes: # map a local volume for persistent storage
-      - /docker/data/mongo:/data/db
+      - ~/docker-volumes/data/mongo:/data/db
 
 
 # mount 'node_modules' directory to its volume to avoid dependency conflicts

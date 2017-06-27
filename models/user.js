@@ -24,8 +24,8 @@ UserSchema.statics.getUserByUsername = function(username, callback) {
   User.findOne(query, callback);
 }
 
-UserSchema.statics.getUsers = function (callback) {
-  User.find({}, 'username _id', callback);
+UserSchema.statics.getUsers = () => {
+  return User.find({}, '-password');
 }
 
 UserSchema.statics.addUser = function(newUser, callback) {

@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
 const errorMiddleware = require('./middleware/error');
+const config = require('./config');
 
 // import routes
 const userRoutes = require('./routes/user');
@@ -27,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // set routes
 // TODO: change to '/user' and '/message'
-app.use('/users', userRoutes);
-app.use('/messages', messageRoutes);
+app.use(`${config.root}/users`, userRoutes);
+app.use(`${config.root}/messages`, messageRoutes);
 
 // set error handling middleware
 app.use(errorMiddleware);

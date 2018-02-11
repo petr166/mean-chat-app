@@ -6,18 +6,16 @@ import 'rxjs/add/operator/map';
 import * as io from 'socket.io-client';
 import { Message } from "../models/message.model";
 import { AuthService } from "./auth.service";
+import {environment} from '../../environments/environment';
+
+const BASE_URL = environment.backendUrl;
 
 @Injectable()
 export class ChatService {
   private socket: any;
-  private serverUrl: string = "http://localhost:8080";
-  private apiUrl: string = "http://localhost:8080/messages"; //!CHANGE this with the backend url
-  private usersUrl: string = "http://localhost:8080/users";
-
-  //build
-  // private apiUrl: string = "/messages";
-  // private serverUrl: string = "/";
-  // private usersUrl: string = "/users";
+  private serverUrl: string = BASE_URL;
+  private apiUrl: string = `${BASE_URL}/messages`;
+  private usersUrl: string = `${BASE_URL}/users`;
 
   constructor(private authService: AuthService, private http: Http) { }
 

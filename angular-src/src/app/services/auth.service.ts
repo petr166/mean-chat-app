@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
+import {environment} from '../../environments/environment';
+
+const BASE_URL = environment.backendUrl;
 
 @Injectable()
 export class AuthService {
   private authToken: string;
   private user: string;
 
-  // development
-  private apiUrl: string = "http://localhost:8080/users"; //!CHANGE this with the backend url
-  // build
-  // private apiUrl: string = "/users";
+  private apiUrl: string = `${BASE_URL}/users`;
 
   constructor(private http: Http) { }
 

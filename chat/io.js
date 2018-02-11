@@ -8,6 +8,12 @@ const initialize = (server) => {
   const io = socketIo(server, {
     origins: 'localhost:* petrub.com:* http://petrub.com:* http://www.petrub.com:*',
   });
+  io.origins([
+    'localhost:*',
+    'petrub.com:*',
+    'http://petrub.com:*',
+    'http://www.petrub.com:*'
+  ]);
 
   io.on("connection", (socket) => {
     connections.push(socket);

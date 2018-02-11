@@ -6,7 +6,7 @@ const connections = [];
 
 const initialize = (server) => {
   const io = socketIo(server, {
-    transports: ['websocket', 'xhr-polling'],
+    path: '/chat-app-api',
     origins: 'localhost:* petrub.com:* http://petrub.com:* http://www.petrub.com:*',
   });
   io.origins([

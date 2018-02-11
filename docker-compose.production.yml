@@ -2,8 +2,6 @@ version: '3'
 services:
   mongo:
     image: mongo:jessie
-    ports: 
-      - "27017:27017"
     volumes: 
       - ~/docker-volumes/data/mongo:/data/db
 
@@ -11,13 +9,6 @@ services:
     build: .
     ports: 
       - "8080:8080"
-    volumes: 
-      - .:/app
-      - deps:/app/node_modules
     env_file: .env
     links:
       - mongo
-    command: npm run dev
-
-volumes:
-  deps:

@@ -6,6 +6,7 @@ const connections = [];
 
 const initialize = (server) => {
   const io = socketIo(server, {
+    transports: ['websocket', 'xhr-polling'],
     origins: 'localhost:* petrub.com:* http://petrub.com:* http://www.petrub.com:*',
   });
   io.origins([

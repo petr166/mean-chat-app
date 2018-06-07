@@ -21,7 +21,7 @@ export class ChatService {
 
   connect(username: string, callback: Function = ()=>{}): void {
     // initialize the connection
-    this.socket = io('http://ec2-18-216-87-161.us-east-2.compute.amazonaws.com', {path: '/chat'});
+    this.socket = io(this.chatUrl, { path: '/chat' });
 
     this.socket.on('error', (error) => {
       console.log('====================================');

@@ -13,7 +13,7 @@ const BASE_URL = environment.backendUrl;
 @Injectable()
 export class ChatService {
   private socket: any;
-  private serverUrl: string = BASE_URL;
+  private chatUrl: string = environment.chatUrl;
   private apiUrl: string = `${BASE_URL}/messages`;
   private usersUrl: string = `${BASE_URL}/users`;
 
@@ -21,7 +21,13 @@ export class ChatService {
 
   connect(username: string, callback: Function = ()=>{}): void {
     // initialize the connection
-    this.socket = io(this.serverUrl, { transports: ['websocket', 'xhr-polling'] });
+    this.socket = io('http://ec2-18-216-87-161.us-east-2.compute.amazonaws.com', {path: '/chat'});
+
+    this.socket.on('error', (error) => {
+      console.log('====================================');
+      console.log(error);
+      console.log('====================================');
+    });
 
     this.socket.on("connect", () => {
       this.sendUser(username);

@@ -5,16 +5,7 @@ const users = [];
 const connections = [];
 
 const initialize = (server) => {
-  const io = socketIo(server, {
-    path: '/chat-app-api',
-    origins: 'localhost:* petrub.com:* http://petrub.com:* http://www.petrub.com:*',
-  });
-  io.origins([
-    'localhost:*',
-    'petrub.com:*',
-    'http://petrub.com:*',
-    'http://www.petrub.com:*'
-  ]);
+  const io = socketIo(server, { path: '/chat' });
 
   io.on("connection", (socket) => {
     connections.push(socket);

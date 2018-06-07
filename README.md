@@ -4,7 +4,7 @@
 
 > A small chat application built using the **MEAN** stack
 
-* Feel free to try the live demo at http://chat-app.petrub.com/
+* Feel free to try the live demo at http://petrub.com/chat-app
 
 # Features
 
@@ -52,7 +52,7 @@ cd angular-src
 npm install
 
 # start the server
-cd ../ && npm start
+cd ../ && npm run dev
 
 # in another terminal window
 cd <App folder>/angular-src && npm start
@@ -104,10 +104,6 @@ This is a personal project with the purpose of better understanding the client-s
   <img src="https://media.giphy.com/media/3oKIPsMIQbwHIuvGda/giphy.gif" alt="Mobile Preview"/>
 </p>
 
-# Plans
+# [Issues](https://github.com/petr166/mean-chat-app/issues)
 
-I am planning to improve the app, increase its performance and add new features and maybe get it ready for a production build in the future
-
-### [repo issues page](https://github.com/petr166/mean-chat-app/issues)
-
-> If you want to help don't hesitate to come up with ideas, bug reports, make pull requests, all you can do. Also if you have any questions, please use the same repo page
+If you want to help don't hesitate to come up with ideas, bug reports, make pull requests, all you can do. Also if you have any questions, please use the same issues page

@@ -1,17 +1,21 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Message } from "../../models/message.model";
-import { ChatService } from "../../services/chat.service";
-import { AuthService } from "../../services/auth.service";
+import { Message } from '../../models/message.model';
+import { ChatService } from '../../services/chat.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
-  styleUrls: ['./chat-room.component.scss']
+  styleUrls: ['./chat-room.component.scss'],
 })
-
 export class ChatRoomComponent implements OnInit, OnDestroy {
   messageList: Array<Message>;
   userList: Array<any>;
@@ -25,16 +29,16 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   noMsg: boolean;
   conversationId: string;
   notify: boolean;
-  notification: any = {timeout:null};
+  notification: any = { timeout: null };
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private el: ElementRef,
-    private authService: AuthService,
-    private chatService: ChatService
-  ) { }
+    public route: ActivatedRoute,
+    public router: Router,
+    public formBuilder: FormBuilder,
+    public el: ElementRef,
+    public authService: AuthService,
+    public chatService: ChatService
+  ) {}
 
   ngOnInit() {
     let userData = this.authService.getUserData();
@@ -45,13 +49,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     });
 
     this.sendForm = this.formBuilder.group({
-      message: ['', Validators.required ]
+      message: ['', Validators.required],
     });
 
     this.getMessages(this.chatWith);
 
     this.connectToChat();
-
   }
 
   ngOnDestroy() {
@@ -64,94 +67,98 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     if (connected == true) {
       this.initReceivers();
     } else {
-      this.chatService.connect(this.username, () => {
-        this.initReceivers();
-      });
+      this.chatService.connect(
+        this.username,
+        () => {
+          this.initReceivers();
+        }
+      );
     }
   }
 
   getMessages(name: string): void {
-    this.chatService.getConversation(this.username, name)
-      .subscribe(data => {
-        if (data.success == true) {
-          this.conversationId = data.conversation._id || data.conversation._doc._id;
-          let messages = data.conversation.messages || null;
-          if (messages && messages.length > 0) {
-            for (let message of messages) {
-              this.checkMine(message);
-            }
-            this.noMsg = false;
-            this.messageList = messages;
-            this.scrollToBottom();
-          } else {
-            this.noMsg = true;
-            this.messageList = [];
+    this.chatService.getConversation(this.username, name).subscribe(data => {
+      if (data.success == true) {
+        this.conversationId =
+          data.conversation._id || data.conversation._doc._id;
+        let messages = data.conversation.messages || null;
+        if (messages && messages.length > 0) {
+          for (let message of messages) {
+            this.checkMine(message);
           }
+          this.noMsg = false;
+          this.messageList = messages;
+          this.scrollToBottom();
         } else {
-          this.onNewConv("chat-room");
+          this.noMsg = true;
+          this.messageList = [];
         }
-      });
+      } else {
+        this.onNewConv('chat-room');
+      }
+    });
   }
 
   getUserList(): void {
-    this.chatService.getUserList()
-      .subscribe(data => {
-        if (data.success == true) {
-          let users = data.users;
-          for (let i = 0; i < users.length; i++) {
-            if (users[i].username == this.username) {
-              users.splice(i, 1);
-              break;
-            }
+    this.chatService.getUserList().subscribe(data => {
+      if (data.success == true) {
+        let users = data.users;
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].username == this.username) {
+            users.splice(i, 1);
+            break;
           }
-          this.userList = users.sort(this.compareByUsername);
+        }
+        this.userList = users.sort(this.compareByUsername);
 
-          this.receiveActiveObs = this.chatService.receiveActiveList()
-            .subscribe(users => {
-              for(let onlineUsr of users) {
-                if (onlineUsr.username != this.username) {
-                  let flaggy = 0;
-                  for(let registered of this.userList) {
-                    if (registered.username == onlineUsr.username) {
-                      flaggy = 1;
-                      break;
-                    }
-                  }
-                  if (flaggy == 0) {
-                    this.userList.push(onlineUsr);
-                    this.userList.sort(this.compareByUsername);
-                  }
-                }
-              }
-
-              for (let user of this.userList) {
-                let flag = 0;
-                for (let liveUser of users) {
-                  if (liveUser.username == user.username) {
-                    user.online = true;
-                    flag = 1;
+        this.receiveActiveObs = this.chatService
+          .receiveActiveList()
+          .subscribe(users => {
+            for (let onlineUsr of users) {
+              if (onlineUsr.username != this.username) {
+                let flaggy = 0;
+                for (let registered of this.userList) {
+                  if (registered.username == onlineUsr.username) {
+                    flaggy = 1;
                     break;
                   }
                 }
-                if (flag == 0) {
-                  user.online = false;
+                if (flaggy == 0) {
+                  this.userList.push(onlineUsr);
+                  this.userList.sort(this.compareByUsername);
                 }
               }
+            }
 
-              this.currentOnline = this.checkOnline(this.chatWith);
-            });
+            for (let user of this.userList) {
+              let flag = 0;
+              for (let liveUser of users) {
+                if (liveUser.username == user.username) {
+                  user.online = true;
+                  flag = 1;
+                  break;
+                }
+              }
+              if (flag == 0) {
+                user.online = false;
+              }
+            }
 
-          this.chatService.getActiveList();
-        } else {
-          this.onNewConv("chat-room");
-        }
-      });
+            this.currentOnline = this.checkOnline(this.chatWith);
+          });
+
+        this.chatService.getActiveList();
+      } else {
+        this.onNewConv('chat-room');
+      }
+    });
   }
 
   initReceivers(): void {
     this.getUserList();
 
-    this.receiveMessageObs = this.chatService.receiveMessage()
+    this.receiveMessageObs = this.chatService
+      .receiveMessage()
       .subscribe(message => {
         this.checkMine(message);
         if (message.conversationId == this.conversationId) {
@@ -160,12 +167,16 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
           this.scrollToBottom();
           this.msgSound();
         } else if (message.mine != true) {
-          if (this.notification.timeout) {clearTimeout(this.notification.timeout)};
+          if (this.notification.timeout) {
+            clearTimeout(this.notification.timeout);
+          }
           this.notification = {
             from: message.from,
             inChatRoom: message.inChatRoom,
             text: message.text,
-            timeout: setTimeout(()=>{ this.notify = false }, 4000)
+            timeout: setTimeout(() => {
+              this.notify = false;
+            }, 4000),
           };
           this.notify = true;
           this.notifSound();
@@ -179,7 +190,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
       from: this.username,
       text: this.sendForm.value.message,
       conversationId: this.conversationId,
-      inChatRoom: this.chatWith == "chat-room"
+      inChatRoom: this.chatWith == 'chat-room',
     };
 
     this.chatService.sendMessage(newMessage, this.chatWith);
@@ -188,7 +199,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     this.messageList.push(newMessage);
     this.scrollToBottom();
     this.msgSound();
-    this.sendForm.setValue({message: ""});
+    this.sendForm.setValue({ message: '' });
   }
 
   checkMine(message: Message): void {
@@ -231,7 +242,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   checkOnline(name: string): boolean {
-    if (name == "chat-room") {
+    if (name == 'chat-room') {
       for (let user of this.userList) {
         if (user.online == true) {
           return true;
@@ -248,11 +259,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   compareByUsername(a, b): number {
-    if (a.username < b.username)
-      return -1;
-    if (a.username > b.username)
-      return 1;
+    if (a.username < b.username) return -1;
+    if (a.username > b.username) return 1;
     return 0;
   }
-
 }

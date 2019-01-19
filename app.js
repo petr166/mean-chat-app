@@ -11,7 +11,6 @@ const config = require('./config');
 const userRoutes = require('./routes/user');
 const messageRoutes = require('./routes/message');
 
-
 // initialize the app
 const app = express();
 
@@ -34,9 +33,8 @@ app.use(`${config.root}/messages`, messageRoutes);
 // set error handling middleware
 app.use(errorMiddleware);
 
-app.get('/', (req, res) => {
-  res.send("Invalid Endpoint");
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('public/index.html'));
 });
-
 
 module.exports = app;

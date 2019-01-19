@@ -4,19 +4,19 @@
 
 > A small chat application built using the **MEAN** stack
 
-* Feel free to try the live demo at http://petrub.com/chat-app
+- Feel free to try the live demo at http://petrub.com/chat-app
 
 # Features
 
-* Register and authenticate users using JSON web tokens
+- Register and authenticate users using JSON web tokens
 
-* Join a common room where you can chat with all the registered users
+- Join a common room where you can chat with all the registered users
 
-* Open 1on1 private conversations with a user of your choice
+- Open 1on1 private conversations with a user of your choice
 
-* Notifications for messages on background conversations
+- Notifications for messages on background conversations
 
-* Have a pleasant UI/UX built to look awesome from mobile to desktop
+- Have a pleasant UI/UX built to look awesome from mobile to desktop
 
 <p align="center">
   <img src="https://media.giphy.com/media/3o7bukiR089wb4ayTm/giphy.gif" alt="Desktop Preview"/>
@@ -28,9 +28,9 @@
 
 > if you don't know what you are doing go on the website and follow the instructions, those are pretty straight forward
 
-* [NodeJS](https://nodejs.org)
-* [MongoDB](https://www.mongodb.com/)
-* [Angular-CLI](https://cli.angular.io/)
+- [NodeJS](https://nodejs.org)
+- [MongoDB](https://www.mongodb.com/)
+- [Angular-CLI](https://cli.angular.io/)
 
 ```bash
 # clone the repo
@@ -39,8 +39,7 @@ git clone https://github.com/petr166/mean-chat-app.git
 # change into the repo directory
 cd mean-chat-app
 
-# !! edit config/database.js file !!
-# with your own data
+# !! create .env file with the model from .env.example !!
 
 # install server dependencies
 npm install
@@ -62,31 +61,31 @@ Then visit http://localhost:4200 in your browser.
 
 # Technologies
 
-* [NodeJS](https://nodejs.org/) - JavaScript backend/server-side solution of choice
+- [NodeJS](https://nodejs.org/) - JavaScript backend/server-side solution of choice
 
-* [Express](https://expressjs.com/) - Node framework that makes handling http requests with ease
+- [Express](https://expressjs.com/) - Node framework that makes handling http requests with ease
 
-  * [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken) - package that helps with generating JWTs for secure authentication
+  - [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken) - package that helps with generating JWTs for secure authentication
 
-  * [PassportJS](http://passportjs.org/) - authentication middleware used to guard certain parts of the app for non-authenticated requests
+  - [PassportJS](http://passportjs.org/) - authentication middleware used to guard certain parts of the app for non-authenticated requests
 
-* [MongoDB](https://www.mongodb.com/) - data storage solution that just speaks JSON and pairs very well with Node
+- [MongoDB](https://www.mongodb.com/) - data storage solution that just speaks JSON and pairs very well with Node
 
-  * [Mongoose](http://mongoosejs.com/) - package that helps with object modeling and manages connection between server and database
+  - [Mongoose](http://mongoosejs.com/) - package that helps with object modeling and manages connection between server and database
 
-  * [Bcryptjs](https://www.npmjs.com/package/bcryptjs) - for salting and hashing the user password to be stored in the database
+  - [Bcryptjs](https://www.npmjs.com/package/bcryptjs) - for salting and hashing the user password to be stored in the database
 
-* [Socket.io](https://socket.io/) - web sockets implementation, fast and reliable real-time communication engine
+- [Socket.io](https://socket.io/) - web sockets implementation, fast and reliable real-time communication engine
 
-* [Angular](https://angular.io/) - rich frontend web framework, helps creating fast, reliable web applications
+- [Angular](https://angular.io/) - rich frontend web framework, helps creating fast, reliable web applications
 
-  * [Angular-CLI](https://cli.angular.io/) - command line interface for streamlined angular development
+  - [Angular-CLI](https://cli.angular.io/) - command line interface for streamlined angular development
 
-  * [TypeScript](https://www.typescriptlang.org/) - superset of JavaScript that can be compiler-checked, also has types!!
+  - [TypeScript](https://www.typescriptlang.org/) - superset of JavaScript that can be compiler-checked, also has types!!
 
-  * [MomentJS](https://momentjs.com/) - JavaScript date/time parser
+  - [MomentJS](https://momentjs.com/) - JavaScript date/time parser
 
-  * [Bootstrap](http://getbootstrap.com/) - CSS/JS framework, makes it easy to develop responsive, well polished web apps
+  - [Bootstrap](http://getbootstrap.com/) - CSS/JS framework, makes it easy to develop responsive, well polished web apps
 
 # How it works
 

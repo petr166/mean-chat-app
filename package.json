@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "pm2": "pm2 delete -s mean-chat-app ; pm2 start server.js --name mean-chat-app",
-    "prepare-app": "npm i && npm i --prefix angular-src && npm run build --prod --prefix angular-src",
+    "prepare-app": "npm i && npm i --prefix angular-src && npm run build:prod --prefix angular-src",
     "refresh-app": "npm run prepare-app && npm run pm2"
   },
   "author": "Petru Birzu",

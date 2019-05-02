@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 8000;
 const MONGO_HOST = process.env.MONGO_HOST || 'mongodb://localhost/chat-app';
 const SECRET = process.env.SECRET || 'supersecretalltheway';
 const ROOT = process.env.ROOT || '';
-const CHAT_PATH = process.env.CHAT_PATH || '/chat-path';
+const CHAT_PATH = process.env.CHAT_PATH || '/mean-chat-app.io';
 
 // init config obj containing the app settings
 const config = {

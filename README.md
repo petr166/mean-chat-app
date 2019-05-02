@@ -53,6 +53,9 @@ npm install
 #export ROOT as system variable
 export ROOT = "/api"
 
+#export CHAT_PATH as system variable
+export CHAT_PATH = "/mean-chat-app.io"
+
 # start the server
 cd ../ && npm run dev
 

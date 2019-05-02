@@ -50,6 +50,9 @@ cd angular-src
 # install frontend dependencies
 npm install
 
+#export ROOT as system variable
+export ROOT = "/api"
+
 # start the server
 cd ../ && npm run dev
 

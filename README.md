@@ -2,7 +2,8 @@
 
 # MEAN Chat App
 
-> A small chat application built using the **MEAN** stack
+> A small chat application built using the **MEAN** stack  
+> Warning: this project was built a few years back so it uses old versions of libraries and does not guarantee security. Also it might not follow current best practices 🤔
 
 - Feel free to try the live demo at http://petrub.com/chat-app
 
@@ -19,7 +20,7 @@
 - Have a pleasant UI/UX built to look awesome from mobile to desktop
 
 <p align="center">
-  <img src="https://media.giphy.com/media/3o7bukiR089wb4ayTm/giphy.gif" alt="Desktop Preview"/>
+  <img src="./preview/chat-app-preview.gif" alt="Desktop Preview"/>
 </p>
 
 # Getting started
@@ -36,25 +37,30 @@
 # clone the repo
 git clone https://github.com/petr166/mean-chat-app.git
 
+# [backend api]
 # change into the repo directory
 cd mean-chat-app
-
-# !! create .env file with the model from .env.example !!
 
 # install server dependencies
 npm install
 
+# !! create .env file with the model from .env.example !!
+cp .env.example .env
+
+# start the development server
+npm run dev
+
+
+# now open another terminal window
+# [frontend angular app]
 # change into the angular src directory
 cd angular-src
 
 # install frontend dependencies
 npm install
 
-# start the server
-cd ../ && npm run dev
-
-# in another terminal window
-cd <App folder>/angular-src && npm start
+# start angular development server
+npm start
 ```
 
 Then visit http://localhost:4200 in your browser.
@@ -100,7 +106,7 @@ Every time a user sends a message, this goes to the server which redirects it to
 This is a personal project with the purpose of better understanding the client-server communication paradigm, new web technologies, especially Angular :)
 
 <p align="center">
-  <img src="https://media.giphy.com/media/3oKIPsMIQbwHIuvGda/giphy.gif" alt="Mobile Preview"/>
+  <img src="./preview/mobile-preview.gif" alt="Mobile Preview"/>
 </p>
 
 # [Issues](https://github.com/petr166/mean-chat-app/issues)

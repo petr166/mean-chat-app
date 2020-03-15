@@ -58,8 +58,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.receiveActiveObs.unsubscribe();
-    this.receiveMessageObs.unsubscribe();
+    this.receiveActiveObs && this.receiveActiveObs.unsubscribe();
+    this.receiveMessageObs && this.receiveMessageObs.unsubscribe();
   }
 
   connectToChat(): void {
@@ -67,12 +67,9 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     if (connected == true) {
       this.initReceivers();
     } else {
-      this.chatService.connect(
-        this.username,
-        () => {
-          this.initReceivers();
-        }
-      );
+      this.chatService.connect(this.username, () => {
+        this.initReceivers();
+      });
     }
   }
 

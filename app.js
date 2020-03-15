@@ -23,12 +23,11 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(config.root, express.static(path.join(__dirname, 'public')));
 
 // set routes
-// TODO: change to '/user' and '/message'
-app.use(`${config.root}/users`, userRoutes);
-app.use(`${config.root}/messages`, messageRoutes);
+app.use(`${config.apiPath}/users`, userRoutes);
+app.use(`${config.apiPath}/messages`, messageRoutes);
 
 // set error handling middleware
 app.use(errorMiddleware);

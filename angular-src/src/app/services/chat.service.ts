@@ -8,21 +8,17 @@ import { Message } from '../models/message.model';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 
-const BASE_URL = environment.backendUrl;
-const CHAT_PATH = environment.chatPath;
-
 @Injectable()
 export class ChatService {
   private socket: any;
-  private chatUrl: string = environment.chatUrl;
-  private apiUrl: string = `${BASE_URL}/messages`;
-  private usersUrl: string = `${BASE_URL}/users`;
+  private apiUrl: string = `${environment.backendUrl}/messages`;
+  private usersUrl: string = `${environment.backendUrl}/users`;
 
   constructor(public authService: AuthService, public http: Http) {}
 
   connect(username: string, callback: Function = () => {}): void {
     // initialize the connection
-    this.socket = io(this.chatUrl, { path: CHAT_PATH });
+    this.socket = io(environment.chatUrl, { path: environment.chatPath });
 
     this.socket.on('error', error => {
       console.log('====================================');

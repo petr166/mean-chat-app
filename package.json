@@ -20,7 +20,7 @@
     "cors": "2.8",
     "dotenv": "^6.2.0",
     "express": "4.15",
-    "jsonwebtoken": "7.4",
+    "jsonwebtoken": "9.0",
     "mongoose": "5.11",
     "morgan": "1.8",
     "passport": "0.3",
